@@ -25,3 +25,25 @@ export function getSubscribers() {
       return [];
     });
 }
+
+export function getTopArticles() {
+  return prisma.article
+    .findMany({
+      select: {
+        id: true,
+        title: true,
+      },
+      where: {
+        isDeleted: false,
+      },
+      orderBy: {
+        viewsCount: "desc",
+      },
+    })
+    .then((articles) => {
+      return articles.slice(0, 5);
+    })
+    .catch((e) => {
+      return [];
+    });
+}

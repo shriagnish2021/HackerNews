@@ -3,6 +3,7 @@ import Image from 'next/image';
 import useSWR from 'swr';
 import Header from '../components/Header';
 import ArticleSection from '../components/ArticleSection';
+import DigestPanel from '../components/DigestPanel';
 
 export default function Home() {
   const { data, error } = useSWR('/api/posts');
@@ -15,6 +16,7 @@ export default function Home() {
     <>
       <Header />
       <ArticleSection />
+      <DigestPanel />
     </>
   );
 }
