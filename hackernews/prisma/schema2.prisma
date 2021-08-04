@@ -1,0 +1,39 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  userName  String
+  email     String    @unique
+  date      DateTime  @default(now())
+  role      Role      @default(AUTHOR)
+  isFlagged Boolean   @default(false)
+  article   Article[]
+}
+
+model Article {
+  id          Int        @id @default(autoincrement())
+  authorId    Int        @default(1) 
+  title       String     @unique
+  content     String
+  date        DateTime   @default(now())
+  isFlagged   Boolean    @default(false)
+  isDeleted   Boolean    @default(false)
+  tagId       Int?       @default(1) 
+  votes       Int?       @default(0)
+  category    String?
+  viewsCount  Int?
+  userTable User? @relation(fields: [authorId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  AUTHOR
+}
