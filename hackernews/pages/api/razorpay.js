@@ -7,9 +7,8 @@ var razorpay = new Razorpay({
 })
 
 export default async (req, res) => {
-    console.log("Hello from razorpay")
     const payment_capture = 1
-    const amount = 500
+    const amount = 299
     const currency = 'INR'
     try {
         const response = await razorpay.orders.create({
@@ -18,7 +17,6 @@ export default async (req, res) => {
             receipt:shortid.generate(),
             payment_capture
         })
-        console.log(response)
         res.json({
             id:response.id,
             currency:response.currency,

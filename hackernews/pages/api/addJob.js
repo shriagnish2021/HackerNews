@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 export default async (req, res) => {
     const {skills,...data} = req.body;
     
-    console.log(data)
     try {
       const result = await prisma.job.create({
         data:{
@@ -18,11 +17,9 @@ export default async (req, res) => {
         mappedSkill['jobId'] = result.id
         return mappedSkill
       })
-      console.log(mapSkillsWithJobId)
       const skillsResult = await prisma.jobSkill.createMany({
         data: mapSkillsWithJobId
       })
-      console.log(result)
       res.status(200).json(result);
     } catch (err) {
       console.log(err);

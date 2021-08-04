@@ -18,7 +18,7 @@ export default function Header() {
           Subscribe to Newsletter
         </button>
       </div>
-      {/* <div className="bg-white text-sm px-6 py-3 flex place-content-evenly">
+      <div className="bg-white text-sm px-6 py-3 flex place-content-evenly">
         <section className="space-x-6  ">
           <Link href="/">
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1"> Home </span>
@@ -39,7 +39,7 @@ export default function Header() {
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1"> Malware </span>
           </Link>
 
-          <Link href="/">
+          <Link href="/Jobs">
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1"> Jobs </span>
           </Link>
         </section>
@@ -55,7 +55,7 @@ export default function Header() {
       </div>
       <div className={`${searchBarClass} ${visibility ? 'block' : 'hidden'}`}>
         <input type="text" placeholder="Search Here" className="border-gray-400 border-2 w-7/12 p-1 rounded  " />
-      </div> */}
+      </div>
     </header>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react'
-
+import Header from '../components/PostJob/Header';
 const Jobs = () => {
     return (
-        <div>
-          Jobs  
-        </div>
+        <>
+          <Header />
+        </>
     )
 }
 
