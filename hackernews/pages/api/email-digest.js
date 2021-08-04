@@ -8,8 +8,8 @@ import mailClient from "nodemailer";
 const client = mailClient.createTransport({
   service: "gmail",
   auth: {
-    user: NEXT_PUBLIC_EMAIL_USERNAME,
-    pass: NEXT_PUBLIC_EMAIL_PASSWORD,
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
@@ -31,7 +31,7 @@ export default async function subscribe(req, res) {
     }
   } else if (
     req.method === "GET" &&
-    req.headers.authorization === `Bearer ${NEXT_PUBLIC_EMAIL_PASSWORD}`
+    req.headers.authorization === `Bearer ${process.env.EMAIL_PASSWORD}`
   ) {
     try {
       res.status(200).json({ msg: process.env.EMAIL_USERNAME });
