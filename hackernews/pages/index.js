@@ -14,8 +14,8 @@ export default function Home() {
   //console.log(data);
   return (
     <>
-      <div>Hello!!</div>
-      {/* <Header /> */}
+      
+      <Header /> 
       {/* <ArticleSection /> */}
       <DigestPanel />
     </>
