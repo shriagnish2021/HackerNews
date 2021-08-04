@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function Header() {
   const [visibility, setVisibility] = useState(false);
-  const searchBarClass = 'flex place-content-center mt-2 delay-100';
+  const searchBarClass = 'flex place-content-center mt-2 ';
   return (
     <header className="">
       <div className="bg-blue-800 text-white px-6 py-5 flex place-content-evenly ">
@@ -23,10 +23,10 @@ export default function Header() {
           <Link href="/">
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1"> Home </span>
           </Link>
-          <Link href="/">
+          <Link href="/user/create-post">
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
               {' '}
-              Cyber Attacks{' '}
+              New Article{' '}
             </span>
           </Link>
           <Link href="/">
@@ -54,7 +54,7 @@ export default function Header() {
         </section>
       </div>
       <div className={`${searchBarClass} ${visibility ? 'block' : 'hidden'}`}>
-        <input type="text" placeHolder="Search Here" className="border-gray-400 border-2 w-7/12 p-1 rounded  " />
+        <input type="text" placeholder="Search Here" className="border-gray-400 border-2 w-7/12 p-1 rounded  " />
       </div>
     </header>
   );
