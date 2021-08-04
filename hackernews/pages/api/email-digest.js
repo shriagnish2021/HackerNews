@@ -4,8 +4,8 @@ import mailClient from "nodemailer";
 const client = mailClient.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USERNAME,
-    pass: process.env.EMAIL_PASSWORD,
+    user: "hacker.news.project@gmail.com",
+    pass: "a1ls2kd3jf4hg5g",
   },
 });
 
@@ -26,10 +26,11 @@ export default async function subscribe(req, res) {
       return res.status(404).json({ msg: "Bad Request" });
     }
   } else if (
-    req.headers.authorization === `Bearer ${process.env.EMAIL_PASSWORD}`
+    req.method === "GET" &&
+    req.headers.authorization === `Bearer a1ls2kd3jf4hg5g`
   ) {
     try {
-      res.status(200).json({msg:"Done!"});
+      res.status(200).json({ msg: "Done!" });
       const subscribers = await getSubscribers();
       subscribers.forEach((sb) => {
         sendEmail(sb.email, "Sorry! This is a test.");
@@ -37,15 +38,15 @@ export default async function subscribe(req, res) {
     } catch (error) {
       console.log(error);
     }
-  } else{
-    res.status(404).json({msg:"Bad Request."})
+  } else {
+    res.status(404).json({ msg: "Bad Request." });
   }
 }
 
 function sendEmail(email, data) {
   client.sendMail(
     {
-      from: process.env.EMAIL_USERNAME,
+      from: "hacker.news.project@gmail.com",
       to: email,
       subject: "Email Digest - Hacker News!",
       html: data,
