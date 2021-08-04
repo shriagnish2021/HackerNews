@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function ArticleInputForm({ addArticle }) {
   const [title, setTitle] = useState('');
@@ -61,9 +62,9 @@ export default function ArticleInputForm({ addArticle }) {
               {' '}
               Publish{' '}
             </button>
-            <a className="p-2 px-2 border border-black rounded text-xl " href="/">
+            <Link className="p-2 px-2 border border-black rounded text-xl " href="/">
               Cancel
-            </a>
+            </Link>
           </div>
         </form>
       </div>
