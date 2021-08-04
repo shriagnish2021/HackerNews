@@ -6,16 +6,17 @@ import ArticleSection from '../components/ArticleSection';
 import DigestPanel from '../components/DigestPanel';
 
 export default function Home() {
-  const { data, error } = useSWR('/api/posts');
+  // const { data, error } = useSWR('/api/posts');
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  // if (error) return <div>failed to load</div>;
+  // if (!data) return <div>loading...</div>;
   // const data = fetch('/api/posts');
   //console.log(data);
   return (
     <>
-      <Header />
-      <ArticleSection />
+      <div>Hello!!</div>
+      {/* <Header /> */}
+      {/* <ArticleSection /> */}
       <DigestPanel />
     </>
   );
