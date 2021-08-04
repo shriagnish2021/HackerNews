@@ -3,6 +3,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
     const {skills,...data} = req.body;
     
     try {

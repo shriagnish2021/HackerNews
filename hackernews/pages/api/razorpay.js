@@ -7,6 +7,8 @@ var razorpay = new Razorpay({
 })
 
 export default async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
     const payment_capture = 1
     const amount = 299;
     const currency = 'INR'
