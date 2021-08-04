@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Header from '../components/PostJob/Header';
 import Image from 'next/image';
 import 'font-awesome/css/font-awesome.min.css';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 function loadScript() {
     return new Promise((resolve) => {
@@ -18,6 +20,7 @@ function loadScript() {
     })
 }
 const PostJob = () => {
+    const router = useRouter()
     const [companyName,setCompanyName] = useState('');
     const [title,setTitle] = useState('')
     const [location,setLocation] = useState('');
@@ -77,6 +80,10 @@ const PostJob = () => {
                 })
                 const apiResponse = await res.json();
                 console.log(apiResponse)
+                router.push('/Jobs')
+                toast.warn("Job Posted successfully!", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
                 // alert(response.razorpay_payment_id);
                 // alert(response.razorpay_order_id);
                 // alert(response.razorpay_signature)
@@ -151,7 +158,7 @@ const PostJob = () => {
                                 {skills.map((skill,index) => (
                                     <li key={index} className="text-gray-700 border-2 border-blue-600 font-bold py-1 px-2 rounded-xl my-2 mr-2">
                                         <span>{skill}&nbsp;&nbsp;</span>
-                                        <i class="fa fa-times cursor-pointer" onClick={() => {removeSkill(index)}}></i>
+                                        <i className="fa fa-times cursor-pointer" onClick={() => {removeSkill(index)}}></i>
                                     </li>
                                 ))}
                                 </ul>
