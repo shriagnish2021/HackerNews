@@ -34,7 +34,7 @@ export default async function subscribe(req, res) {
     req.headers.authorization === `Bearer ${NEXT_PUBLIC_EMAIL_PASSWORD}`
   ) {
     try {
-      res.status(200).json({ msg: NEXT_PUBLIC_EMAIL_USERNAME });
+      res.status(200).json({ msg: process.env.EMAIL_USERNAME });
       const articles = await getTopArticles();
       const html = createHTML(articles, "Post");
       const subscribers = await getSubscribers();
