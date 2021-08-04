@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id         Int      @id @default(autoincrement())
+  authorId   Int      @default(1)
+  title      String   @unique
+  content    String
+  date       DateTime @default(now())
+  isFlagged  Boolean  @default(false)
+  isDeleted  Boolean  @default(false)
+  tagId      Int?     @default(1)
+  votes      Int?     @default(0)
+  category   String?
+  viewsCount Int?
+  User       User     @relation(fields: [authorId], references: [id])
+}
+
+model Job {
+  id             Int        @id @default(autoincrement())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  title          String?
+  companyName    String?
+  location       String?
+  description    String?
+  employmentType String?
+  JobSkill       JobSkill[]
+}
+
+model JobSkill {
+  id    Int    @id @default(autoincrement())
+  jobId Int
+  skill String
+  Job   Job    @relation(fields: [jobId], references: [id])
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  userName  String
+  email     String    @unique
+  date      DateTime  @default(now())
+  role      Role      @default(AUTHOR)
+  isFlagged Boolean   @default(false)
+  Article   Article[]
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  AUTHOR
+}
