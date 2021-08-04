@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import Header from '../components/PostJob/Header';
 import Image from 'next/image';
 import 'font-awesome/css/font-awesome.min.css';
@@ -20,13 +20,25 @@ function loadScript() {
     })
 }
 const PostJob = () => {
+    const editorRef = useRef()
+    const [ editorLoaded, setEditorLoaded ] = useState( false )
+    const { CKEditor, ClassicEditor} = editorRef.current || {}
+
+    useEffect( () => {
+        editorRef.current = {
+          CKEditor: require( '@ckeditor/ckeditor5-react' ).CKEditor, //Added .CKEditor
+          ClassicEditor: require( '@ckeditor/ckeditor5-build-classic' ),
+        }
+        setEditorLoaded( true )
+    }, [] );
+    
     const router = useRouter()
     const [companyName,setCompanyName] = useState('');
     const [title,setTitle] = useState('')
     const [location,setLocation] = useState('');
     const [employmentType,setEmploymentType] = useState('');
     const [description,setDesription] = useState('')
-    const [skills,setSkills] = useState(["Tag1","Tag2"])
+    const [skills,setSkills] = useState([])
     const addSkill = (e) => {
         if(e.key === "Enter") {
             setSkills([...skills,e.target.value])
@@ -103,11 +115,14 @@ const PostJob = () => {
         rzp1.open();
         
     }
+    const handleCk = (e,editor) => {
+        setDescription(editor.getData())
+    }
     return (   
         <>
             <Header />
             <div className="bg-job-post bg-cover text-white">
-                <div className="w-1/2 py-36 pl-40 flex flex-col space-y-8">
+                <div className="w-1/2 py-36 pl-48 flex flex-col space-y-8">
                     <div className="text-5xl">Post your job for just &#8377;299</div>
                     <p className="text-xl">Reach the best candidates by posting a job within 60 seconds on one of India's largest assessed database.</p>
                 </div>
@@ -118,20 +133,20 @@ const PostJob = () => {
                     <form className="flex flex-col space-y-10 pr-8 pt-8 pb-4" onSubmit={handleJobSubmit}>
                         <div className="flex justify-end space-x-5 items-center">
                             <label htmlFor="company">Company Name</label>
-                            <input className="p-2 border w-9/12 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="company" id="company" placeholder="Enter the name of your company" onChange={(e) => setCompanyName(e.target.value)} required/>
+                            <input className="p-2 border w-9/12 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="company" id="company" placeholder="Enter the name of your company" onChange={(e) => setCompanyName(e.target.value)} required/>
                         </div>
                         <div className="flex justify-end space-x-5 items-center">
                             <label htmlFor="title">Job Title</label>
-                            <input type="text" className="border w-9/12 p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" name="title" id="title" placeholder="Job Title" onChange={(e) => setTitle(e.target.value)} required/>
+                            <input type="text" className="border w-9/12 p-2 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" name="title" id="title" placeholder="Job Title" onChange={(e) => setTitle(e.target.value)} required/>
                         </div>
                         <div className="flex justify-end space-x-5 items-center">
                             <label htmlFor="location">Job Location</label>
-                            <input className="border w-9/12 p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="location" id="location" placeholder="Enter the city" onChange={(e) => setLocation(e.target.value)} required/>
+                            <input className="border w-9/12 p-2 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="location" id="location" placeholder="Enter the city" onChange={(e) => setLocation(e.target.value)} required/>
                         </div>
                         <div className="flex justify-end space-x-5 items-center">
                             <label htmlFor="employment-type">Employment Type</label>
                             <select
-                                    className="text-gray-400 bg-white border w-9/12 p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded"    
+                                    className="text-gray-400 bg-white border border-gray-300 w-9/12 p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded"    
                                     name="employment-type"
                                     id="employment-type"
                                     onChange={(e) => setEmploymentType(e.target.value)}
@@ -149,7 +164,27 @@ const PostJob = () => {
                         </div>
                         <div className="flex justify-end space-x-5">
                             <label htmlFor="job-description">Job Description</label>
-                            <textarea name="job-description" id="job-description" className="w-9/12 px-3 py-2 text-gray-700 border rounded focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent focus:outline-none" cols="30" rows="10" placeholder="Enter the job description here." onChange={(e) => setDesription(e.target.value)}></textarea>
+                            <div className="w-9/12 text-gray-700 rounded">
+                                {editorLoaded ? <CKEditor
+                                    editor={ ClassicEditor }
+                                    description={description}
+                                    data={'<p>Enter your job description here.</p>'}
+                                    onChange={ (event, editor ) => {
+                                        const data = editor.getData()
+                                        setDesription(data);
+                                    } }
+                                    onReady={(editor) => {
+                                        editor.editing.view.change((writer) => {
+                                        writer.setStyle(
+                                            "height",
+                                            "300px",
+                                            editor.editing.view.document.getRoot()
+                                        );
+                                        });
+                                    }}
+                                /> : <p>Loading editor...</p>}
+                            </div>
+                            {/* <textarea name="job-description" id="job-description" className="w-9/12 px-3 py-2 text-gray-700 border rounded focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent focus:outline-none" cols="30" rows="10" placeholder="Enter the job description here." onChange={(e) => setDesription(e.target.value)}></textarea> */}
                         </div>
                         <div className="flex justify-end space-x-5 items-center">
                             <label>Add Skills Required</label>
@@ -162,10 +197,10 @@ const PostJob = () => {
                                     </li>
                                 ))}
                                 </ul>
-                                <input className="border w-full p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="skills" id="skills" placeholder="Type a skill and press enter to add it." onKeyPress={addSkill}/>
+                                <input className="border w-full p-2 focus:outline-none border-gray-300   focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="skills" id="skills" placeholder="Type a skill and press enter to add it." onKeyPress={addSkill}/>
                             </div>
                         </div>
-                        <div className="flex justify-end"><button type="submit" class="w-1/5 bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">Pay and Post Job</button></div>
+                        <div className="flex justify-end"><button type="submit" className="w-1/5 bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">Pay and Post Job</button></div>
                     </form>
                 </div>
             </div>
