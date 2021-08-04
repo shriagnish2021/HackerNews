@@ -8,8 +8,8 @@ import mailClient from "nodemailer";
 const client = mailClient.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USERNAME,
-    pass: process.env.EMAIL_PASSWORD,
+    user: NEXT_PUBLIC_EMAIL_USERNAME,
+    pass: NEXT_PUBLIC_EMAIL_PASSWORD,
   },
 });
 
@@ -31,7 +31,7 @@ export default async function subscribe(req, res) {
     }
   } else if (
     req.method === "GET" &&
-    req.headers.authorization === `Bearer ${process.env.EMAIL_PASSWORD}`
+    req.headers.authorization === `Bearer ${NEXT_PUBLIC_EMAIL_PASSWORD}`
   ) {
     try {
       res.status(200).json({ msg: "Done!" });
@@ -52,7 +52,7 @@ export default async function subscribe(req, res) {
 function sendEmail(email, data) {
   client.sendMail(
     {
-      from: process.env.EMAIL_USERNAME,
+      from: NEXT_PUBLIC_EMAIL_USERNAME,
       to: email,
       subject: "Email Digest - Hacker News!",
       html: data,
