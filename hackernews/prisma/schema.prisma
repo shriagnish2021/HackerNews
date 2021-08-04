@@ -47,3 +47,8 @@ enum Role {
   MODERATOR
   AUTHOR
 }
+
+model Subscriber {
+  id    Int    @id @default(autoincrement())
+  email String @db.VarChar(100)
+}

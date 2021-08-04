@@ -10,7 +10,7 @@ export default function Home() {
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
   // const data = fetch('/api/posts');
-  console.log(data);
+  //console.log(data);
   return (
     <>
       <Header />
