@@ -52,7 +52,7 @@ export default async function subscribe(req, res) {
 function sendEmail(email, data) {
   client.sendMail(
     {
-      from: NEXT_PUBLIC_EMAIL_USERNAME,
+      from: process.env.EMAIL_USERNAME,
       to: email,
       subject: "Email Digest - Hacker News!",
       html: data,
