@@ -20,7 +20,7 @@ export default function ArticleCards({ article }) {
         &emsp; &ensp;
         <span className="text-gray-600 text-sm relative">
           <FaUser className="absolute top-0 -left-4 " />
-          {article.userTable.name}
+          {article.userTable.userName}
         </span>
       </div>
     </div>
