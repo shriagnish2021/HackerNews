@@ -124,7 +124,7 @@ const PostJob = () => {
             <div className="bg-job-post bg-cover text-white">
                 <div className="w-1/2 py-36 pl-48 flex flex-col space-y-8">
                     <div className="text-5xl">Post your job for just &#8377;299</div>
-                    <p className="text-xl">Reach the best candidates by posting a job within 60 seconds on one of India's largest assessed database.</p>
+                    <p className="text-xl">Reach the best candidates by posting a job within 60 seconds on one of India&apos;s largest assessed database.</p>
                 </div>
             </div>
             <div className="flex justify-center bg-gray-100">
