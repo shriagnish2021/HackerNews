@@ -5,7 +5,7 @@ const logger = createLogger({
   transports: [
     new transports.File({
       name: 'error-file',
-      filename: '/filelog/error.log',
+      filename: '../filelog/error.log',
       level: 'error',
       json: true,
       format: format.combine(
