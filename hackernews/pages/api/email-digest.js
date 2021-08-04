@@ -35,13 +35,13 @@ export default async function subscribe(req, res) {
     req.headers.authorization === `Bearer ${process.env.EMAIL_PASSWORD}`
   ) {
     try {
-      res.status(200).json({ msg: "Done!" });
       const articles = await getTopArticles();
       const html = createHTML(articles, "Post");
       const subscribers = await getSubscribers();
       subscribers.forEach((sb) => {
         sendEmail(sb.email, html);
       });
+      res.status(200).json({ msg: "Done!" });
     } catch (error) {
       console.log(error);
     }
