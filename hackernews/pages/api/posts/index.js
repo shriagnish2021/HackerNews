@@ -41,7 +41,7 @@ apiRoute.post(async (req, res) => {
     const newArticleData = await createData(newArticle);
     res.status(200).json(newArticleData);
   } catch (err) {
-    logger.error(err.stack);
+   
     res.status(501).json({ msg: ' There is an error. Our tech team has been notified.' });
   } finally {
     console.log('hello');
