@@ -8,7 +8,7 @@ var razorpay = new Razorpay({
 
 export default async (req, res) => {
     const payment_capture = 1
-    const amount = 299
+    const amount = 299;
     const currency = 'INR'
     try {
         const response = await razorpay.orders.create({
