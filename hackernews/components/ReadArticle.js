@@ -16,13 +16,13 @@ export default function ReadArticle({ article }) {
         &emsp; &ensp;
         <span className="text-gray-600 text-xs relative">
           <FaUser className="absolute top-0 -left-4 " />
-          {article.userTable.name}
+          {article.userTable.userName}
         </span>
       </div>
       <Image src={imagePath} width={775} height={300} layout="intrinsic" alt="Cover Image" />
       <p
         className="w-3/5 mt-6 text-gray-800 text-sm text-justify"
-        dangerouslySetInnerHTML={{ __html: marked(article.markdown) }}
+        dangerouslySetInnerHTML={{ __html: marked(article.content) }}
       />
     </div>
   );
