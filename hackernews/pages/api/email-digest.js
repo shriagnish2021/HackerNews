@@ -6,11 +6,12 @@ import {
 import mailClient from "nodemailer";
 
 const client = mailClient.createTransport({
-  service: "gmail",
+  host: "smtp.mailtrap.io",
+  port: 2525,
   auth: {
-    user: process.env.EMAIL_USERNAME,
-    pass: process.env.EMAIL_PASSWORD,
-  },
+    user: "08f2b736e48e00",
+    pass: "f3a0a504f2f09a"
+  }
 });
 
 export default async function subscribe(req, res) {
@@ -34,7 +35,7 @@ export default async function subscribe(req, res) {
     req.headers.authorization === `Bearer ${process.env.EMAIL_PASSWORD}`
   ) {
     try {
-      res.status(200).json({ msg: process.env.EMAIL_USERNAME });
+      res.status(200).json({ msg: "Done!" });
       const articles = await getTopArticles();
       const html = createHTML(articles, "Post");
       const subscribers = await getSubscribers();
