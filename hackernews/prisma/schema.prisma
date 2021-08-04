@@ -7,6 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int       @id @default(autoincrement())
+  userName  String
+  email     String    @unique
+  date      DateTime  @default(now())
+  role      Role      @default(AUTHOR)
+  isFlagged Boolean   @default(false)
+  article   Article[]
+}
+
 model Article {
   id         Int      @id @default(autoincrement())
   authorId   Int      @default(1)
@@ -19,7 +29,7 @@ model Article {
   votes      Int?     @default(0)
   category   String?
   viewsCount Int?
-  User       User     @relation(fields: [authorId], references: [id])
+  userTable  User     @relation(fields: [authorId], references: [id])
 }
 
 model Job {
@@ -41,18 +51,13 @@ model JobSkill {
   Job   Job    @relation(fields: [jobId], references: [id])
 }
 
-model User {
-  id        Int       @id @default(autoincrement())
-  userName  String
-  email     String    @unique
-  date      DateTime  @default(now())
-  role      Role      @default(AUTHOR)
-  isFlagged Boolean   @default(false)
-  Article   Article[]
-}
-
 enum Role {
   ADMIN
   EDITOR
   AUTHOR
 }
+model Subscriber {
+  id    Int    @id @default(autoincrement())
+  email String @db.VarChar(100)
+}
+
