@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .ck-content > blockquote,
 .ck-content > dl,
 .ck-content > dd,
@@ -38,3 +39,4 @@
   font-size: revert;
   font-weight: revert;
 }
+
