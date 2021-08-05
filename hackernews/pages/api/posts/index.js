@@ -4,8 +4,7 @@ import { getAllArticles, createData } from "../../../util/queryFunctions";
 import sanitizer from "../../../util/sanitizer.js";
 
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: "./public/uploads",
+  storage: multer.memoryStorage({
     filename: (req, file, cb) => cb(null, file.originalname),
   }),
 });
