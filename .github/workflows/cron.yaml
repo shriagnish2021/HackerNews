@@ -7,4 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call email digest API
-        run: curl --request GET --url 'https://hacker-news-delta.vercel.app/api/email-digest' --header 'Authorization: Bearer a1ls2kd3jf4hg5g'
+        run: |
+          curl --request GET \
+          --url 'https://hacker-news-delta.vercel.app/api/email-digest' \
+          --header 'Authorization: Bearer a1ls2kd3jf4hg5g'
