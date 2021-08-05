@@ -5,12 +5,13 @@ import Header from '../../components/Header';
 import ArticleInputForm from '../../components/ArticleInputForm';
 
 export default function createPost() {
-  const handleAddNewArticle = async ({ title, content, file }) => {
+  const handleAddNewArticle = async ({ title, content, file, tags }) => {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
     formData.append('authorId', 1);
     formData.append('img', file);
+    formData.append('tags', tags)
 
     const config = {
       headers: { 'content-type': 'multipart/form-data' },

@@ -96,9 +96,6 @@ const PostJob = () => {
                 toast.warn("Job Posted successfully!", {
                     position: toast.POSITION.TOP_CENTER,
                 });
-                // alert(response.razorpay_payment_id);
-                // alert(response.razorpay_order_id);
-                // alert(response.razorpay_signature)
             },
         };
         var rzp1 = new window.Razorpay(options);
@@ -184,7 +181,6 @@ const PostJob = () => {
                                     }}
                                 /> : <p>Loading editor...</p>}
                             </div>
-                            {/* <textarea name="job-description" id="job-description" className="w-9/12 px-3 py-2 text-gray-700 border rounded focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent focus:outline-none" cols="30" rows="10" placeholder="Enter the job description here." onChange={(e) => setDesription(e.target.value)}></textarea> */}
                         </div>
                         <div className="flex justify-end space-x-5 items-center">
                             <label>Add Skills Required</label>

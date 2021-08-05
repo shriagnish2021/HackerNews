@@ -30,6 +30,7 @@ export async function getArticleById(id) {
           role: true,
         },
       },
+      Tag: true,
     },
   });
   return article;
@@ -61,4 +62,11 @@ export async function getJobById(id) {
     },
   });
   return job;
+}
+
+export async function createTags(tags) {
+  const tagsResult = await prisma.tag.createMany({
+    data: tags
+  })
+  return tagsResult
 }
