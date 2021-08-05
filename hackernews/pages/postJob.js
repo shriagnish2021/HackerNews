@@ -65,7 +65,7 @@ const PostJob = () => {
             alert('Razorpay SDK failed to load. Are you online?')
             return
         }
-        const response = await fetch('https://hacker-news-delta.vercel.app/api/razorpay',{method:'POST'})
+        const response = await fetch(`http://localhost:3000/api/razorpay`,{method:'POST'})
         const data = await response.json()
         var options = {
             "key": "rzp_test_ECHU5EC4Un1Ri7", // Enter the Key ID generated from the Dashboard
@@ -83,7 +83,7 @@ const PostJob = () => {
                 formData.append('location', location)
                 formData.append('employmentType',employmentType)
                 formData.append('description', description)
-                const res = await fetch("https://hacker-news-delta.vercel.app/api/addJob",{
+                const res = await fetch(`http://localhost:3000/api/addJob`,{
                     method: 'POST',
                     headers: {
                         "Content-type": "application/json; charset=UTF-8"
@@ -92,7 +92,7 @@ const PostJob = () => {
                 })
                 const apiResponse = await res.json();
                 console.log(apiResponse)
-                router.push('/Jobs')
+                router.push('/jobs')
                 toast.warn("Job Posted successfully!", {
                     position: toast.POSITION.TOP_CENTER,
                 });

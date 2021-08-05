@@ -40,3 +40,25 @@ export async function createData(data) {
   });
   return newData;
 }
+export async function getAllJobs() {
+  const jobs = await prisma.job.findMany({
+    include: {
+      JobSkill:true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  return jobs;
+}
+export async function getJobById(id) {
+  const job = await prisma.job.findFirst({
+    where: {
+      id,
+    },
+    include: {
+      JobSkill:true,
+    },
+  });
+  return job;
+}
