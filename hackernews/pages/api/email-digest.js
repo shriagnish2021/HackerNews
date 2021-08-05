@@ -9,8 +9,8 @@ const client = mailClient.createTransport({
   host: "smtp.mailtrap.io",
   port: 2525,
   auth: {
-    user: "08f2b736e48e00",
-    pass: "f3a0a504f2f09a"
+    user: "d6abca00064884",
+    pass: "d4634532a8fd10"
   }
 });
 
