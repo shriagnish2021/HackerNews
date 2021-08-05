@@ -2,7 +2,6 @@ import useSWR from 'swr';
 import ArticleCards from './ArticleCards';
 
 export default function ArticleSection() {
-  // const url = 'https://mixd-blog.herokuapp.com/api/posts';
   const { data, error } = useSWR('/api/posts');
 
   if (error) return <div>failed to load</div>;
