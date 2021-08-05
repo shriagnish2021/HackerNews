@@ -9,6 +9,7 @@ export default function ArticleInputForm({ addArticle }) {
   const handleFile = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
+    
   };
 
   const handleSubmit = (e) => {
@@ -31,7 +32,11 @@ export default function ArticleInputForm({ addArticle }) {
                 Add a cover image
                 <input type="file" accept="image/*" id="img" name="img" hidden onChange={handleFile} />
               </label>
+             
             </div>
+            <div className="flex mt-2">
+{imageFile?imageFile.name:null}
+</div>
             <div>
               <input
                 required
