@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 
 
@@ -5,11 +6,10 @@ import { Fragment, useState } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
 import Button from "../components/Login/Button";
-import { useSession } from "next-auth/client";
 
 export default function Login() {
   const [open, setOpen] = useState(true);
-  useSession
+
   // format of data recieved
   //   user:
   // email: "email"
