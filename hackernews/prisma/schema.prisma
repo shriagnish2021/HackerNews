@@ -51,6 +51,7 @@ model JobSkill {
   Job   Job    @relation(fields: [jobId], references: [id])
 }
 
+
 model Subscriber {
   id    Int    @id @default(autoincrement())
   email String @db.VarChar(100)
@@ -61,3 +62,6 @@ enum Role {
   EDITOR
   AUTHOR
 }
+
+
+
