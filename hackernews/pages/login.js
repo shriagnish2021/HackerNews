@@ -1,15 +1,23 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 
-
 import { Fragment, useState } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
 import Button from "../components/Login/Button";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 
 export default function Login() {
   const [open, setOpen] = useState(true);
-
+  const router = useRouter();
+  const [session,loading] = useSession();
+  if(!loading && session)
+  {
+    session ? router.push('/'):router.push('/login')
+  }
+  
+  
   // format of data recieved
   //   user:
   // email: "email"
@@ -18,6 +26,7 @@ export default function Login() {
   // name: "username"
   return (
     <div>
+      {session?<h3 className="text-center"> redirecting... </h3> : null}
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
@@ -82,7 +91,7 @@ export default function Login() {
                         </p>
                       </div>
                       <div className="mt-8 border-2 flex justify-center align-middle py-2 bg-gray-50">
-                      <Button auth='google'/>
+                        <Button auth="google" />
                       </div>
                       <div className="mt-4 border-2 flex justify-center align-middle py-2 bg-gray-50 focus:outline-none">
                         <Button auth="github" />
