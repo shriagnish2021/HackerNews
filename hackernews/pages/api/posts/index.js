@@ -1,25 +1,26 @@
-import nextConnect from 'next-connect';
-import multer from 'multer';
-import { getAllArticles, createData } from '../../../util/queryFunctions';
-import sanitizer from '../../../util/sanitizer.js';
-import logger from '../../../util/winstonLogger.js';
+import nextConnect from "next-connect";
+import multer from "multer";
+import { getAllArticles, createData } from "../../../util/queryFunctions";
+import sanitizer from "../../../util/sanitizer.js";
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: './public/uploads',
+    destination: "./public/uploads",
     filename: (req, file, cb) => cb(null, file.originalname),
   }),
 });
 const apiRoute = nextConnect({
   onError(error, req, res) {
-    res.status(501).json({ error: `Sorry something Happened! ${error.message}` });
+    res
+      .status(501)
+      .json({ error: `Sorry something Happened! ${error.message}` });
   },
   // Handle any other HTTP method
   onNoMatch(req, res) {
     res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
   },
 });
-const uploadMiddleware = upload.array('img');
+const uploadMiddleware = upload.array("img");
 apiRoute.use(uploadMiddleware);
 
 // Process a GET request
@@ -41,10 +42,12 @@ apiRoute.post(async (req, res) => {
     const newArticleData = await createData(newArticle);
     res.status(200).json(newArticleData);
   } catch (err) {
-    logger.error(err.stack);
-    res.status(501).json({ msg: ' There is an error. Our tech team has been notified.' });
+    
+    res
+      .status(501)
+      .json({ msg: " There is an error. Our tech team has been notified." });
   } finally {
-    console.log('hello');
+    console.log("hello");
   }
 });
 
