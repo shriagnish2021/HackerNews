@@ -24,7 +24,7 @@ export default function Article() {
     <>
       <Header />
       <ReadArticle article={data} />
-      <CommentSection articleId={articleId} data={comments} session={...session} />
+      <CommentSection articleId={articleId} data={comments} session={{...session}} />
     </>
   );
 }
