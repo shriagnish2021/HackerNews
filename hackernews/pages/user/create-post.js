@@ -11,7 +11,7 @@ export default function createPost() {
     formData.append('content', content);
     formData.append('authorId', 1);
     formData.append('img', file);
-    formData.append('tags', tags)
+    formData.append('tags', tags);
 
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
