@@ -6,22 +6,33 @@ import { useState } from 'react';
 
 export default function CreatePost() {
   const handleAddNewArticle = async ({ title, content, file, tags },setLoading) => {
+    imageUpload(file)
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('authorId', 1); //replace with user id from session
-    formData.append('img', file);
-
-    formData.append('tags', tags)
+    // formData.append('title', title);
+    // formData.append('content', content);
+    // formData.append('authorId', 1); //replace with user id from session
+    // formData.append('img', file);
+    // formData.append('tags', tags)
     
-    const config = {
-      headers: { 'content-type': 'multipart/form-data' },
-    };
-    const { data } = await axios.post('/api/posts', formData, config);
-    setLoading(false)
-    router.push(`/posts/${data.id}`);
+    // const config = {
+    //   headers: { 'content-type': 'multipart/form-data' },
+    // };
+    // const { data } = await axios.post('/api/posts', formData, config);
+    // setLoading(false)
+    // router.push(`/posts/${data.id}`);
   };
-
+  const imageUpload = async (file) => {
+    const data = new FormData();
+    data.append('file', media)
+    data.append('upload_preset', 'hacker-news')
+    data.append('cloud_name','agnish')
+    const res = await fetch('	https://api.cloudinary.com/v1_1/agnish/image/upload',{
+      method:"POST",
+      body:data,
+    })
+    const res2 = await res.json()
+    console.log(res2)
+  }
   return (
     <div className="bg-gray-100">
       <Header />
