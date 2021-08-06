@@ -74,7 +74,7 @@ export default function Header({ setSearchBarVisibility }) {
           </div>
         </div>
 
-        <div className="bg-white text-sm px-6 py-3 flex place-content-evenly">
+        <div className={Router.asPath === '/'?"bg-white text-sm px-6 py-3 flex place-content-evenly":"bg-white text-sm px-6 py-3 w-6/12 m-auto"}>
           <section className="space-x-6  ">
             <Link href="/">
               <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">Home</span>

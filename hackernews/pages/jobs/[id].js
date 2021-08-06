@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Header from '../../components/Header';
 import JobPostCard from '../../components/Jobs/JobPostCard';
 import FullPageLoader from '../../components/FullPageLoader';
+import Footer from '../../components/Footer';
 
 export default function Article() {
   const Router = useRouter();
@@ -15,14 +16,10 @@ export default function Article() {
   return (
     <>
       <Header />
-      <JobPostCard job={data} description={true}/>
-      {/* <div className="w-full flex justify-center my-4">
-        <div className="w-6/12 text-2xl">Job Description</div>
-      </div> */}
-      <div className="w-full flex justify-center my-4"> 
-        <div className="w-6/12 ck-content" dangerouslySetInnerHTML={{ __html: data.description }}>
-        </div>
+      <div className="h-screen">
+        <JobPostCard job={data} description={true}/>
       </div>
+      <Footer />
     </>
   );
 }

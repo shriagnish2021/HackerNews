@@ -4,6 +4,7 @@ import Image from 'next/image';
 import 'font-awesome/css/font-awesome.min.css';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import Footer from '../components/Footer';
 
 function loadScript() {
     return new Promise((resolve) => {
@@ -122,32 +123,32 @@ const PostJob = () => {
     return (   
         <>
             <Header />
-            <div className="bg-job-post bg-cover text-white">
-                <div className="w-1/2 py-36 pl-48 flex flex-col space-y-8">
-                    <div className="text-5xl">Post your job for just &#8377;299</div>
-                    <p className="text-xl">Reach the best candidates by posting a job within 60 seconds on one of India&apos;s largest assessed database.</p>
+            <div className="bg-job-post bg-cover bg-center bg-no-repeat text-white">
+                <div className="px-4 py-8 w-4/5 md:w-1/2 flex flex-col space-y-8">
+                    <div className="text-3xl md:text-4xl lg:text-5xl">Post your job for just &#8377;299</div>
+                    <p className="text-base md:text-lg lg:text-xl">Reach the best candidates by posting a job within 60 seconds on one of India&apos;s largest assessed database.</p>
                 </div>
             </div>
             <div className="flex justify-center bg-gray-100">
-                <div className="bg-white mt-4 w-4/5">
+                <div className="bg-white mt-4 w-full md:w-4/5 mb-12 rounded shadow-md">
                     <div className="text-2xl border-solid border-b-4 border-gray-100 px-4 py-2.5"><i className="fa fa-briefcase text-gray-600"></i>&nbsp;&nbsp;&nbsp;Job Details</div>
-                    <form className="flex flex-col space-y-10 pr-8 pt-8 pb-4" onSubmit={handleJobSubmit}>
-                        <div className="flex justify-end space-x-5 items-center">
+                    <form className="flex flex-col space-y-10 md:pr-8 pt-8 pb-4" onSubmit={handleJobSubmit}>
+                        <div className="flex flex-col px-8 md:px-0 space-y-2 md:space-y-0 md:flex-row md:justify-end md:space-x-5 md:items-center">
                             <label htmlFor="company">Company Name</label>
-                            <input className="p-2 border w-9/12 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="company" id="company" placeholder="Enter the name of your company" onChange={(e) => setCompanyName(e.target.value)} required/>
+                            <input className="p-2 w-full border md:w-9/12 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="company" id="company" placeholder="Enter the name of your company" onChange={(e) => setCompanyName(e.target.value)} required/>
                         </div>
-                        <div className="flex justify-end space-x-5 items-center">
+                        <div className="flex flex-col px-8 md:px-0 space-y-2 md:space-y-0 md:flex-row md:justify-end md:space-x-5 md:items-center">
                             <label htmlFor="title">Job Title</label>
-                            <input type="text" className="border w-9/12 p-2 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" name="title" id="title" placeholder="Job Title" onChange={(e) => setTitle(e.target.value)} required/>
+                            <input type="text" className="border md:w-9/12 p-2 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" name="title" id="title" placeholder="Job Title" onChange={(e) => setTitle(e.target.value)} required/>
                         </div>
-                        <div className="flex justify-end space-x-5 items-center">
+                        <div className="flex flex-col px-8 md:px-0 space-y-2 md:space-y-0 md:flex-row md:justify-end md:space-x-5 md:items-center">
                             <label htmlFor="location">Job Location</label>
-                            <input className="border w-9/12 p-2 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="location" id="location" placeholder="Enter the city" onChange={(e) => setLocation(e.target.value)} required/>
+                            <input className="border md:w-9/12 p-2 focus:outline-none border-gray-300 focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="location" id="location" placeholder="Enter the city" onChange={(e) => setLocation(e.target.value)} required/>
                         </div>
-                        <div className="flex justify-end space-x-5 items-center">
+                        <div className="flex flex-col px-8 md:px-0 space-y-2 md:space-y-0 md:flex-row md:justify-end md:space-x-5 md:items-center">
                             <label htmlFor="employment-type">Employment Type</label>
                             <select
-                                    className=" bg-white border border-gray-300 w-9/12 p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded"    
+                                    className=" bg-white border border-gray-300 md:w-9/12 p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded"    
                                     name="employment-type"
                                     id="employment-type"
                                     onChange={(e) => setEmploymentType(e.target.value)}
@@ -163,9 +164,9 @@ const PostJob = () => {
                                     <option value="Volunteer">Volunteer</option>
                             </select>
                         </div>
-                        <div className="flex justify-end space-x-5">
+                        <div className="flex flex-col px-8 md:px-0 space-y-2 md:space-y-0 md:flex-row md:justify-end md:space-x-5 md:items-center">
                             <label htmlFor="job-description">Job Description</label>
-                            <div className="w-9/12 text-gray-700 rounded">
+                            <div className="md:w-9/12 text-gray-700 rounded">
                                 {editorLoaded ? <CKEditor
                                     editor={ ClassicEditor }
                                     description={description}
@@ -186,9 +187,9 @@ const PostJob = () => {
                                 /> : <p>Loading editor...</p>}
                             </div>
                         </div>
-                        <div className="flex justify-end space-x-5 items-center">
+                        <div className="flex flex-col px-8 md:px-0 space-y-2 md:space-y-0 md:flex-row md:justify-end md:space-x-5 md:items-center">
                             <label>Add Skills Required</label>
-                            <div className="w-9/12 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded">
+                            <div className="md:w-9/12 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded">
                                 <ul className="flex">
                                 {skills.map((skill,index) => (
                                     <li key={index} className="text-gray-700 border-2 border-blue-600 font-bold py-1 px-2 rounded-xl my-2 mr-2">
@@ -200,13 +201,17 @@ const PostJob = () => {
                                 <input className="border w-full p-2 focus:outline-none border-gray-300   focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="skills" id="skills" placeholder="Type a skill and press enter to add it." onKeyPress={addSkill}/>
                             </div>
                         </div>
-                        <div className="flex justify-end"><button type="submit" className="w-1/5 bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
-                            {loading && <i className="fa fa-refresh fa-spin" />}
-                            {loading && <span>&nbsp;&nbsp;</span>}
-                            Pay and Post Job</button></div>
+                        <div className="flex justify-end mr-8 md:mr-0">
+                            <button type="submit" className="md:w-1/5 bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                                {loading && <i className="fa fa-refresh fa-spin" />}
+                                {loading && <span>&nbsp;&nbsp;</span>}
+                                Pay and Post Job
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }
