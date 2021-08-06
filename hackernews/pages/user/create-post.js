@@ -1,21 +1,24 @@
 import axios from 'axios';
 import router from 'next/router';
-
 import Header from '../../components/Header';
 import ArticleInputForm from '../../components/ArticleInputForm';
+import { useState } from 'react';
 
-export default function createPost() {
-  const handleAddNewArticle = async ({ title, content, file }) => {
+export default function CreatePost() {
+  const handleAddNewArticle = async ({ title, content, file, tags },setLoading) => {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('authorId', 1);
+    formData.append('authorId', 1); //replace with user id from session
     formData.append('img', file);
 
+    formData.append('tags', tags)
+    
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
     };
     const { data } = await axios.post('/api/posts', formData, config);
+    setLoading(false)
     router.push(`/posts/${data.id}`);
   };
 

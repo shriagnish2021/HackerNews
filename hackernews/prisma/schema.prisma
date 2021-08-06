@@ -67,6 +67,7 @@ model Tag {
   Article   Article @relation(fields: [articleId], references: [id])
 }
 
+
 model Comment {
   id String @id
   content String

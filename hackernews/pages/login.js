@@ -8,16 +8,10 @@ import Button from "../components/Login/Button";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
-export default function Login() {
+export default function Login({setlogin}) {
   const [open, setOpen] = useState(true);
-  const router = useRouter();
-  const [session,loading] = useSession();
-  if(!loading && session)
-  {
-    session ? router.push('/'):router.push('/login')
-  }
-  
-  
+
+
   // format of data recieved
   //   user:
   // email: "email"
@@ -26,7 +20,7 @@ export default function Login() {
   // name: "username"
   return (
     <div>
-      {session?<h3 className="text-center"> redirecting... </h3> : null}
+     
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
@@ -103,7 +97,7 @@ export default function Login() {
                   <button
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white font-medium focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {setOpen(false);setlogin(false)}}
                   >
                     Cancel
                   </button>

@@ -1,24 +1,27 @@
-/* eslint-disable @next/next/no-img-element */
+import useSWR from 'swr';
+import { useState } from 'react';
+import Header from '../components/Header';
+import ArticleSection from '../components/ArticleSection';
+import DigestPanel from '../components/DigestPanel';
 
-
-import useSWR from "swr";
-import Header from "../components/Header";
-import ArticleSection from "../components/ArticleSection";
-import DigestPanel from "../components/DigestPanel";
-
+import Footer from '../components/Footer';
+import FullPageLoader from '../components/FullPageLoader';
 
 export default function Home() {
-  const { data, error } = useSWR("/api/posts");
-
+  const [searchBarVisibility, setSearchBarVisibility] = useState({
+    search: false,
+    searchWithinDateRange: false,
+  });
+  const { data, error } = useSWR('/api/posts');
   if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  if (!data) return <FullPageLoader />;
 
-  //console.log(data);
   return (
     <>
-      <Header />
-      <ArticleSection />
+      <Header setSearchBarVisibility={setSearchBarVisibility} />
+      <ArticleSection data={data} searchBarVisibility={searchBarVisibility} />
       <DigestPanel />
+      <Footer />
     </>
   );
 }

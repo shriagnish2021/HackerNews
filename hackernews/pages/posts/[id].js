@@ -5,6 +5,8 @@ import ReadArticle from '../../components/ReadArticle.js';
 import CommentSection from '../../components/CommentSection/CommentSection';
 import {useSession} from 'next-auth';
 
+import FullPageLoader from '../../components/FullPageLoader';
+
 export default function Article() {
   const Router = useRouter();
   const path = Router.asPath;
@@ -16,8 +18,8 @@ export default function Article() {
   const { data, error } = useSWR(`/api${path}`);
 
   if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
-
+  if (!data) return <FullPageLoader />;
+  console.log(data)
   return (
     <>
       <Header />
