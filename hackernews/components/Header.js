@@ -54,7 +54,7 @@ export default function Header({ setSearchBarVisibility }) {
               </span>
             </Link>
 
-            <Link href="/">
+            <Link href="/jobs">
               <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1"> Jobs </span>
             </Link>
           </section>
