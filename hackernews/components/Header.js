@@ -38,7 +38,7 @@ export default function Header({ setSearchBarVisibility }) {
             <Link href="/">The Hacker News</Link>
           </h1>
 
-          {Router.asPath === '/' ? (
+          {Router.asPath === '/' || Router.asPath==='/#' ? (
             <button
               type="button"
               className="bg-yellow-300 text-black p-2 flex rounded-md"
