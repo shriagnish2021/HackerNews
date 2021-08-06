@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .ck-content > blockquote,
 .ck-content > dl,
 .ck-content > dd,
@@ -37,6 +36,8 @@
 .ck-content > h5,
 .ck-content > h6 {
   font-size: revert;
-  font-weight: revert;
+  /* font-weight: revert; */
 }
-
+.selected {
+  color: white;
+}
