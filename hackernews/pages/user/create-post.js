@@ -11,6 +11,7 @@ export default function CreatePost() {
     formData.append('content', content);
     formData.append('authorId', 1); //replace with user id from session
     formData.append('img', file);
+
     formData.append('tags', tags)
     
     const config = {
