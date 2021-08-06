@@ -14,8 +14,9 @@ model User {
   date      DateTime  @default(now())
   role      Role      @default(AUTHOR)
   isFlagged Boolean   @default(false)
+  image     String?
   article   Article[]
-  comments   Comment[]
+  comments  Comment[]
 }
 
 model Article {
@@ -26,12 +27,13 @@ model Article {
   date       DateTime @default(now())
   isFlagged  Boolean  @default(false)
   isDeleted  Boolean  @default(false)
-  tagId      Int?     @default(1)
   votes      Int?     @default(0)
   category   String?
   viewsCount Int?
+  image      String?
   userTable  User     @relation(fields: [authorId], references: [id])
-  comments    Comment[]
+  Tag        Tag[]
+  comments   Comment[]
 }
 
 model Job {
@@ -53,10 +55,16 @@ model JobSkill {
   Job   Job    @relation(fields: [jobId], references: [id])
 }
 
-
 model Subscriber {
   id    Int    @id @default(autoincrement())
   email String @db.VarChar(100)
+}
+
+model Tag {
+  id        Int     @id @default(autoincrement())
+  tag       String
+  articleId Int
+  Article   Article @relation(fields: [articleId], references: [id])
 }
 
 model Comment {
@@ -75,6 +83,3 @@ enum Role {
   EDITOR
   AUTHOR
 }
-
-
-

@@ -23,7 +23,7 @@ export default function CommentSection({ data, session, articleId }) {
         articleId,
         article: {},
         authorId: session.user.id,
-        author: { userName: session.user.userName },
+        author: { userName: session.user.userName, image:session.user.image },
       };
       setComments((currentState) => [...currentState, newComment]);
 

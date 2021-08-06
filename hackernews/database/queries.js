@@ -62,6 +62,7 @@ export async function getCommentsByArticleId(articleId) {
           select: {
             id: true,
             userName: true,
+            image:true,
           },
         },
       },

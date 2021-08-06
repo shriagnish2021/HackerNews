@@ -24,7 +24,7 @@ export default function Comment({ comment, replies, setReplies, session, article
         articleId,
         article: {},
         authorId: session.user.id,
-        author: { userName: session.user.userName },
+        author: { userName: session.user.userName, image:session.user.image },
       };
       setShowReplyField(false);
       setReplies((currentValue) => {
