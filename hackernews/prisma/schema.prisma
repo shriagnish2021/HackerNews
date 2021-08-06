@@ -32,6 +32,13 @@ model Article {
   Tag        Tag[]
 }
 
+model Tag {
+  id        Int     @id @default(autoincrement())
+  tag       String
+  articleId Int
+  article   Article @relation(fields: [articleId], references: [id])
+}
+
 model Job {
   id             Int        @id @default(autoincrement())
   createdAt      DateTime   @default(now())

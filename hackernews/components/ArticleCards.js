@@ -7,7 +7,7 @@ export default function ArticleCards({ article }) {
   const imagePath = `/images/malware.jpg`;
 
   return (
-    <div className="flex m-6 w-2/4 ">
+    <div className="flex m-8 w-2/4  ">
       <Image src={imagePath} width={250} height={150} layout="intrinsic" alt="Cover Image" />
       <div className="w-3/5 ml-4  ">
         <h2 className="font-bold">
