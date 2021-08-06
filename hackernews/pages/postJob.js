@@ -135,7 +135,7 @@ const router = useRouter()
   return (
     <>
       <Header />
-      {!session && !loading?<Unauthorized />:
+     
       <>
       <div className="bg-job-post bg-cover text-white">
         <div className="w-1/2 py-36 pl-48 flex flex-col space-y-8">
@@ -278,7 +278,7 @@ const router = useRouter()
         </div>
       </div>
       </>
-}
+
     </>
   );
 };

@@ -27,8 +27,7 @@ const isLogin = function isLoggedIn(req, res) {
 };
 console.log("before");
 apiRoute.use(isLogin);
-
-export default async (req, res) => {
+apiRoute.post(async(req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -56,4 +55,5 @@ export default async (req, res) => {
     console.log(err);
     res.status(403).json({ err: "Error occured ." });
   }
-};
+})
+export default apiRoute ;
