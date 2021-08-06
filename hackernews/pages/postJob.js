@@ -95,6 +95,7 @@ const PostJob = () => {
                     body: JSON.stringify(jobData),
                 })
                 const apiResponse = await res.json();
+                console.log(apiResponse)
                 setLoading(false)
                 toast.warn("Job Posted successfully!", {
                     position: toast.POSITION.TOP_CENTER,
