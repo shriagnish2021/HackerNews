@@ -107,6 +107,10 @@ const PostJob = () => {
 
         rzp1.on('payment.failed', function (response){
                 alert(response.error.reason);
+                toast.warn("Payment failed!", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+                setLoading(false)
                 router.push(`/postJob`)
         });
         rzp1.open();
@@ -143,7 +147,7 @@ const PostJob = () => {
                         <div className="flex justify-end space-x-5 items-center">
                             <label htmlFor="employment-type">Employment Type</label>
                             <select
-                                    className="text-gray-400 bg-white border border-gray-300 w-9/12 p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded"    
+                                    className=" bg-white border border-gray-300 w-9/12 p-2 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded"    
                                     name="employment-type"
                                     id="employment-type"
                                     onChange={(e) => setEmploymentType(e.target.value)}

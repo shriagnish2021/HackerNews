@@ -14,6 +14,7 @@ model User {
   date      DateTime  @default(now())
   role      Role      @default(AUTHOR)
   isFlagged Boolean   @default(false)
+  image     String?
   article   Article[]
 }
 
@@ -22,6 +23,7 @@ model Article {
   authorId   Int      @default(1)
   title      String   @unique
   content    String
+  image      String?
   date       DateTime @default(now())
   isFlagged  Boolean  @default(false)
   isDeleted  Boolean  @default(false)
