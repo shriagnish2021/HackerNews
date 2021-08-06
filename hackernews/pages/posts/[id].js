@@ -19,7 +19,7 @@ export default function Article() {
 
   if (error) return <div>failed to load</div>;
   if (!data) return <FullPageLoader />;
-  console.log(data)
+
   return (
     <>
       <Header />
