@@ -3,6 +3,7 @@ import Link from 'next/link';
 import 'font-awesome/css/font-awesome.min.css';
 
 export default function ArticleInputForm({ addArticle }) {
+  const [loading, setLoading] = useState(false);
   const [tags,setTags] = useState([])
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -11,17 +12,17 @@ export default function ArticleInputForm({ addArticle }) {
   const handleFile = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
-    
   };
 
   const handleSubmit = (e) => {
+    setLoading(true)
     e.preventDefault();
     addArticle({
       title,
       content,
       img: imageFile,
       tags,
-    });
+    },setLoading);
   };
   const addTag = (e) => {
     if(e.key === "Enter") {
@@ -87,6 +88,8 @@ export default function ArticleInputForm({ addArticle }) {
           </div>
           <div>
             <button type="submit" className="m-2 p-1 px-2 border text-xl border-black rounded bg-gray-600 text-white">
+              {loading && <i className="fa fa-refresh fa-spin" />}
+              {loading && <span>&nbsp;&nbsp;</span>}
               {' '}
               Publish{' '}
             </button>

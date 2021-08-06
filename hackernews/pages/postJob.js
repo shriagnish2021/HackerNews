@@ -1,5 +1,5 @@
 import React, { useState,useRef,useEffect } from 'react';
-import Header from '../components/PostJob/Header';
+import Header from '../components/Header';
 import Image from 'next/image';
 import 'font-awesome/css/font-awesome.min.css';
 import { useRouter } from 'next/router';
@@ -20,6 +20,7 @@ function loadScript() {
     })
 }
 const PostJob = () => {
+    const [loading, setLoading] = useState(false);
     const editorRef = useRef()
     const [ editorLoaded, setEditorLoaded ] = useState( false )
     const { CKEditor, ClassicEditor} = editorRef.current || {}
@@ -50,6 +51,7 @@ const PostJob = () => {
         setSkills(skills.filter((_,index) => index !== indexToRemove))
     }
     const handleJobSubmit = async(e) => {
+        setLoading(true)
         e.preventDefault()
         const jobData = {
             companyName,
@@ -65,7 +67,8 @@ const PostJob = () => {
             alert('Razorpay SDK failed to load. Are you online?')
             return
         }
-        const response = await fetch(`https://hacker-news-delta.vercel.app/api/razorpay`,{method:'POST'})
+        const url = process.env.NODE_ENV === 'development' ?  `http://localhost:3000/api/razorpay` : `https://hacker-news-delta.vercel.app/api/razorpay`;
+        const response = await fetch(url,{method:'POST'})
         const data = await response.json()
         var options = {
             "key": "rzp_test_ECHU5EC4Un1Ri7", // Enter the Key ID generated from the Dashboard
@@ -83,7 +86,8 @@ const PostJob = () => {
                 formData.append('location', location)
                 formData.append('employmentType',employmentType)
                 formData.append('description', description)
-                const res = await fetch(`https://hacker-news-delta.vercel.app/api/addJob`,{
+                const url = process.env.NODE_ENV === 'development' ?  `http://localhost:3000/api/addJob` : `https://hacker-news-delta.vercel.app/api/addJob`;
+                const res = await fetch(url,{
                     method: 'POST',
                     headers: {
                         "Content-type": "application/json; charset=UTF-8"
@@ -91,23 +95,18 @@ const PostJob = () => {
                     body: JSON.stringify(jobData),
                 })
                 const apiResponse = await res.json();
-                console.log(apiResponse)
-                router.push('/jobs')
+                setLoading(false)
                 toast.warn("Job Posted successfully!", {
                     position: toast.POSITION.TOP_CENTER,
                 });
+                router.push(`/jobs/${apiResponse.id}`)
             },
         };
         var rzp1 = new window.Razorpay(options);
 
         rzp1.on('payment.failed', function (response){
-                alert(response.error.code);
-                alert(response.error.description);
-                alert(response.error.source);
-                alert(response.error.step);
                 alert(response.error.reason);
-                alert(response.error.metadata.order_id);
-                alert(response.error.metadata.payment_id);
+                router.push(`/postJob`)
         });
         rzp1.open();
         
@@ -196,7 +195,10 @@ const PostJob = () => {
                                 <input className="border w-full p-2 focus:outline-none border-gray-300   focus:ring-1 focus:ring-blue-600 focus:border-transparent rounded" type="text" name="skills" id="skills" placeholder="Type a skill and press enter to add it." onKeyPress={addSkill}/>
                             </div>
                         </div>
-                        <div className="flex justify-end"><button type="submit" className="w-1/5 bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">Pay and Post Job</button></div>
+                        <div className="flex justify-end"><button type="submit" className="w-1/5 bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                            {loading && <i className="fa fa-refresh fa-spin" />}
+                            {loading && <span>&nbsp;&nbsp;</span>}
+                            Pay and Post Job</button></div>
                     </form>
                 </div>
             </div>
