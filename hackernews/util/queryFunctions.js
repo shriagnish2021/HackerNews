@@ -1,6 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 export async function getAllArticles() {
   const articles = await prisma.article.findMany({
