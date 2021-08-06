@@ -40,7 +40,7 @@ export default function ReadArticle({ article }) {
         ) : null}
       </div>
       <Image
-        src={imagePath}
+        src={`${article.image || imagePath}`}
         width={775}
         height={300}
         layout="intrinsic"

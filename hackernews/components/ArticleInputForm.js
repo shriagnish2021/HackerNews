@@ -22,7 +22,7 @@ export default function ArticleInputForm({ addArticle }) {
     addArticle({
       title,
       content,
-      img: imageFile,
+      file: imageFile,
       tags,
     },setLoading);
   };

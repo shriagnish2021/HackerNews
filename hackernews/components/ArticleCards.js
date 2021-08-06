@@ -8,7 +8,7 @@ export default function ArticleCards({ article }) {
 
   return (
     <div className="flex m-8 w-2/4  ">
-      <Image src={imagePath} width={250} height={150} layout="intrinsic" alt="Cover Image" />
+      <Image src={`${article.image || imagePath}`} width={250} height={150} layout="intrinsic" alt="Cover Image" />
       <div className="w-3/5 ml-4 flex flex-col justify-between ">
         <div>
           <h2 className="font-bold">

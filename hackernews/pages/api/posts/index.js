@@ -31,12 +31,14 @@ apiRoute.post(async (req, res) => {
   try {
     const title = sanitizer(req.body.title);
     const content = sanitizer(req.body.content);
+    const image = req.body.img
     const { tags } = req.body;
     const tagsArray = tags.split(',');
     const newArticle = {
       authorId: +req.body.authorId,
       title,
       content,
+      image,
     };
     const newArticleData = await createData(newArticle);
     const mappedTags = tagsArray.map((tag) => {
