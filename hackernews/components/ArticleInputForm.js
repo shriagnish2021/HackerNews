@@ -3,11 +3,13 @@ import Link from 'next/link';
 import 'font-awesome/css/font-awesome.min.css';
 
 export default function ArticleInputForm({ addArticle }) {
+
   const [loading, setLoading] = useState(false);
   const [tags,setTags] = useState([])
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imageFile, setImageFile] = useState({});
+
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -25,15 +27,15 @@ export default function ArticleInputForm({ addArticle }) {
     },setLoading);
   };
   const addTag = (e) => {
-    if(e.key === "Enter") {
-        setTags([...tags,e.target.value])
-        e.preventDefault()
-        e.target.value=""
+    if (e.key === 'Enter') {
+      setTags([...tags, e.target.value]);
+      e.preventDefault();
+      e.target.value = '';
     }
-  }
+  };
   const removeTag = (indexToRemove) => {
-    setTags(tags.filter((_,index) => index !== indexToRemove))
-  }
+    setTags(tags.filter((_, index) => index !== indexToRemove));
+  };
   return (
     <>
       <div className="flex flex-col place-items-center items-center mt-8  ">
@@ -45,11 +47,8 @@ export default function ArticleInputForm({ addArticle }) {
                 Add a cover image
                 <input type="file" accept="image/*" id="img" name="img" hidden onChange={handleFile} />
               </label>
-             
             </div>
-            <div className="flex mt-2">
-{imageFile?imageFile.name:null}
-</div>
+            <div className="flex mt-2">{imageFile ? imageFile.name : null}</div>
             <div>
               <input
                 required
@@ -63,15 +62,27 @@ export default function ArticleInputForm({ addArticle }) {
               />{' '}
             </div>
             <div className="w-full ml-0 mb-5">
-                <ul className="flex">
-                {tags.map((tag,index) => (
-                    <li key={index} className="text-gray-700 border-2 border-blue-600 py-1 px-2 rounded-xl my-2 mr-2">
-                        <span>{tag}&nbsp;&nbsp;</span>
-                        <i className="fa fa-times cursor-pointer" onClick={() => {removeTag(index)}}></i>
-                    </li>
+              <ul className="flex">
+                {tags.map((tag, index) => (
+                  <li key={index} className="text-gray-700 border-2 border-blue-600 py-1 px-2 rounded-xl my-2 mr-2">
+                    <span>{tag}&nbsp;&nbsp;</span>
+                    <i
+                      className="fa fa-times cursor-pointer"
+                      onClick={() => {
+                        removeTag(index);
+                      }}
+                    />
+                  </li>
                 ))}
-                </ul>
-                <input className="w-full pb-1 focus:outline-none text-lg" type="text" name="tags" id="tags" placeholder="Type a tag and press enter to add it..." onKeyPress={addTag}/>
+              </ul>
+              <input
+                className="w-full pb-1 mt-3 focus:outline-none text-lg"
+                type="text"
+                name="tags"
+                id="tags"
+                placeholder="Type a tag and press enter to add it..."
+                onKeyPress={addTag}
+              />
             </div>
             <div>
               <textarea
@@ -79,7 +90,7 @@ export default function ArticleInputForm({ addArticle }) {
                 required
                 name="content"
                 id="content"
-                className="w-full mt-2 text-xl focus:outline-none"
+                className="w-full  text-xl focus:outline-none"
                 defaultValue={content}
                 placeholder="Write you content here in markdown..."
                 onChange={(e) => setContent(e.target.value)}
@@ -88,13 +99,14 @@ export default function ArticleInputForm({ addArticle }) {
           </div>
           <div>
             <button type="submit" className="m-2 p-1 px-2 border text-xl border-black rounded bg-gray-600 text-white">
+
               {loading && <i className="fa fa-refresh fa-spin" />}
               {loading && <span>&nbsp;&nbsp;</span>}
               {' '}
               Publish{' '}
             </button>
-            <Link className="p-2 px-2 border border-black rounded text-xl " href="/">
-              Cancel
+            <Link href="/">
+              <span className="p-2 px-2 border border-black rounded text-xl  ">Cancel</span>
             </Link>
           </div>
         </form>

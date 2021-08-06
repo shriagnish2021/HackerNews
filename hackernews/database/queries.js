@@ -22,6 +22,7 @@ export function getSubscribers() {
     .findMany({ select: { email: true } })
     .then((subscribers) => subscribers)
     .catch((e) => {
+      console.log(e);
       return [];
     });
 }
@@ -44,6 +45,60 @@ export function getTopArticles() {
       return articles.slice(0, 5);
     })
     .catch((e) => {
+      console.log(e);
       return [];
+    });
+}
+export async function getCommentsByArticleId(articleId) {
+  return prisma.comment
+    .findMany({
+      select: {
+        id: true,
+        content: true,
+        parentCommentId: true,
+        articleId: true,
+        authorId: true,
+        author: {
+          select: {
+            id: true,
+            userName: true,
+            image:true,
+          },
+        },
+      },
+      where: {
+        articleId: +articleId,
+      },
+    })
+    .then((data) => data)
+    .catch((e) => {
+      console.log(e);
+      return [];
+    });
+}
+
+export async function addComment({
+  id,
+  authorId,
+  date,
+  articleId,
+  content,
+  parentCommentId,
+}) {
+  return prisma.comment
+    .create({
+      data: {
+        id,
+        authorId,
+        date,
+        articleId,
+        content,
+        parentCommentId,
+      },
+    })
+    .then((data) => data)
+    .catch((e) => {
+      console.log(e);
+      return {};
     });
 }
