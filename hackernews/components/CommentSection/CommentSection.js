@@ -3,11 +3,16 @@ import { v4 as uuid4 } from "uuid";
 import { useEffect, useState } from "react";
 import AddComment from "./AddComment";
 import sanitizer from "../../util/sanitizer";
+import { useRouter } from "next/router";
+import useSWR from "swr";
 
-export default function CommentSection({ data, session, articleId }) {
-  const commentsArray = data.filter((comment) => !comment.parentCommentId);
+export default function CommentSection({  session }) {
+  const router = useRouter();
+  const articleId = router.query.id;
+  const {data, error} = useSWR(`/api/comments?id=${articleId}`);
+  const commentsArray = data instanceof Array? data.filter((comment) => !comment.parentCommentId): [] ;
   const [comments, setComments] = useState([...commentsArray]);
-  const repliesArray = data.filter((comment) => !!comment.parentCommentId);
+  const repliesArray = data instanceof Array? data.filter((comment) => !!comment.parentCommentId): [];
   const [replies, setReplies] = useState([...repliesArray]);
 
   useEffect(() => {}, [data]);
