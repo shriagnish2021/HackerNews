@@ -28,16 +28,31 @@ const options = {
   callbacks: {
     async session(session) {
       
-      await prisma.user.upsert({
-        where: {
-          email: session.user.email,
-        },
-        update: {},
-        create: {
-          userName: session.user.name,
-          email: session.user.email,
-        },
-      });
+      const user = await prisma.user.findFirst({
+        where:{
+          email:session.user.email
+        }
+      })
+
+      if(!user){
+        await prisma.user.create({
+        
+          data: {
+            userName: session.user.name,
+            email: session.user.email,
+            image:session.user.image,
+          },
+        });
+
+        const user = await prisma.user.findFirst({
+          where:{
+            email:session.user.email
+          }
+        })
+      }
+
+      
+      session.user = {...user}
       return session;
     },
   

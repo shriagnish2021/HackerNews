@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/link-passhref */
 import Link from "next/link";
-import { FaSearch, FaBars, FaEnvelope } from "react-icons/fa";
+import { FaSearch, FaBars, FaEnvelope, FaUser } from "react-icons/fa";
 import { useState } from "react";
 import Login from "../pages/login";
 import { signOut, useSession } from "next-auth/client";
@@ -26,7 +27,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="bg-yellow-300 text-black p-2 flex rounded-md"
+          className="bg-yellow-300 text-black p-2  flex rounded-md"
           onClick={handleScroll}
         >
           <span>
@@ -37,12 +38,16 @@ export default function Header() {
         {login ? <Login setlogin={setlogin} /> : null}
         {session && !loading ? (
           <>
-          <span>welcome {session.user.name}</span>
-          <button onClick={() => signOut()}>logout</button>
+          <span className="mt-2">
+            Create Post
+          </span>
+
+          <span>{session.user.image?<img src={session.user.image} alt="user-png" className="h-5" />:<FaUser /> }{session.user.userName}</span>
+          <button onClick={() => signOut()}> Logout</button>
         </>
          
         ) : (
-          <button onClick={() => setlogin(true)}>login</button>
+          <button onClick={() => setlogin(true)}>Login</button>
         )}
       </div>
 
