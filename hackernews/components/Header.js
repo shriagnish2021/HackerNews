@@ -1,21 +1,22 @@
 import Link from 'next/link';
-import { FaSearch, FaBars, FaEnvelope } from 'react-icons/fa';
+import { FaSearch, FaEnvelope, FaFilter } from 'react-icons/fa';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
-export default function Header() {
-  const [visibility, setVisibility] = useState(false);
+export default function Header({ setSearchBarVisibility }) {
   const searchBarClass = 'flex place-content-center mt-2 ';
   const Router = useRouter();
 
   return (
     <>
-      {/*  <head>
+      <Head>
         <meta charset="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Hacker News</title>
-      </head> */}
+        <link rel="icon" href="/images/logo.png" type="image/icon type" />
+      </Head>
       <header className="">
         <div className="bg-blue-800 text-white px-6 py-5 flex place-content-evenly ">
           <h1 className="text-4xl font-black ">
@@ -44,10 +45,7 @@ export default function Header() {
               </span>
             </Link>
             <Link href="/">
-              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
-                {' '}
-                Login{' '}
-              </span>
+              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1"> Login </span>
             </Link>
             <Link href="/">
               <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
@@ -60,28 +58,49 @@ export default function Header() {
               <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1"> Jobs </span>
             </Link>
           </section>
-          <section className="space-x-6">
-            {/*  <button type="button" onClick={() => setVisibility((prevState) => !prevState)}>
-              <FaSearch />
-            </button> */}
+          {Router.asPath === '/' ? (
+            <section className="space-x-6">
+              <button
+                type="button"
+                onClick={() =>
+                  setSearchBarVisibility((prevState) =>
+                    prevState.searchWithinDateRange
+                      ? {
+                          search: !prevState.search,
+                          searchWithinDateRange: false,
+                        }
+                      : {
+                          ...prevState,
+                          search: !prevState.search,
+                        }
+                  )
+                }
+              >
+                <FaSearch />
+              </button>
 
-            <button type="button">
-              <FaBars />
-            </button>
-          </section>
-        </div>
-        <div className={`${searchBarClass} ${visibility ? 'block' : 'hidden'}`}>
-          <input type="text" placeholder="Search Here" className="border-gray-400 border-2  p-1 rounded mr-4 w-1/6 " />
-          <div>
-            <span> Sort by date:&nbsp; </span>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              className="border-gray-400 border-2  p-1 rounded "
-              placeholder="dd/aa/bbbb"
-            />
-          </div>
+              <button
+                type="button"
+                onClick={() =>
+                  setSearchBarVisibility((prevState) =>
+                    prevState.search
+                      ? {
+                          search: false,
+                          searchWithinDateRange: !prevState.searchWithinDateRange,
+                        }
+                      : {
+                          ...prevState,
+                          searchWithinDateRange: !prevState.searchWithinDateRange,
+                        }
+                  )
+                }
+              >
+                <FaFilter />
+              </button>
+            </section>
+          ) : (
+            ''
+          )}
         </div>
       </header>
     </>
