@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../components/PostJob/Header';
+import Header from '../../components/Header';
 import JobPostCard from '../../components/Jobs/JobPostCard';
 import useSWR from 'swr';
 import FullPageLoader from '../../components/FullPageLoader';

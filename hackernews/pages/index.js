@@ -15,6 +15,7 @@ export default function Home() {
   const { data, error } = useSWR('/api/posts');
   if (error) return <div>failed to load</div>;
   if (!data) return <FullPageLoader />;
+
   return (
     <>
       <Header setSearchBarVisibility={setSearchBarVisibility} />

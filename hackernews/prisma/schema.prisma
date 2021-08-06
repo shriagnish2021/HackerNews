@@ -14,6 +14,7 @@ model User {
   date      DateTime  @default(now())
   role      Role      @default(AUTHOR)
   isFlagged Boolean   @default(false)
+  image     String?
   article   Article[]
 }
 
@@ -30,13 +31,6 @@ model Article {
   viewsCount Int?
   userTable  User     @relation(fields: [authorId], references: [id])
   Tag        Tag[]
-}
-
-model Tag {
-  id        Int     @id @default(autoincrement())
-  tag       String
-  articleId Int
-  article   Article @relation(fields: [articleId], references: [id])
 }
 
 model Job {
@@ -61,6 +55,13 @@ model JobSkill {
 model Subscriber {
   id    Int    @id @default(autoincrement())
   email String @db.VarChar(100)
+}
+
+model Tag {
+  id        Int     @id @default(autoincrement())
+  tag       String
+  articleId Int
+  Article   Article @relation(fields: [articleId], references: [id])
 }
 
 enum Role {

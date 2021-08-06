@@ -8,7 +8,8 @@ import SearchBar from './SearchBar';
 export default function ArticleSection({ data, searchBarVisibility }) {
   const [articleData, setArticleData] = useState(data);
   const [pageNumber, setPageNumber] = useState(0);
-  const articlesPerPage = 5;
+
+  const articlesPerPage = 7;
   const pagesVisited = pageNumber * articlesPerPage;
 
   const displayArticles = articleData
@@ -84,6 +85,7 @@ export default function ArticleSection({ data, searchBarVisibility }) {
         searchBarVisibility={searchBarVisibility}
         searchWithinDateRange={searchWithinDateRange}
       />
+
       {displayArticles}
       <ReactPaginate
         previousLabel="<"
