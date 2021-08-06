@@ -1,6 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
+import prisma from '../lib/prisma';
 
 export async function getAllArticles() {
   const articles = await prisma.article.findMany({
@@ -10,6 +8,12 @@ export async function getAllArticles() {
           id: true,
           userName: true,
           role: true,
+        },
+      },
+      Tag: {
+        select: {
+          id: true,
+          tag: true,
         },
       },
     },
@@ -44,7 +48,7 @@ export async function createData(data) {
 export async function getAllJobs() {
   const jobs = await prisma.job.findMany({
     include: {
-      JobSkill:true,
+      JobSkill: true,
     },
     orderBy: {
       createdAt: 'desc',
@@ -58,7 +62,7 @@ export async function getJobById(id) {
       id,
     },
     include: {
-      JobSkill:true,
+      JobSkill: true,
     },
   });
   return job;
@@ -66,7 +70,7 @@ export async function getJobById(id) {
 
 export async function createTags(tags) {
   const tagsResult = await prisma.tag.createMany({
-    data: tags
-  })
-  return tagsResult
+    data: tags,
+  });
+  return tagsResult;
 }
