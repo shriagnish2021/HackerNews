@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Header from '../../components/Header';
 import ReadArticle from '../../components/ReadArticle.js';
 import CommentSection from '../../components/CommentSection/CommentSection';
-import {useSession} from 'next-auth';
+import { useSession } from 'next-auth/client';
 
 import FullPageLoader from '../../components/FullPageLoader';
 
