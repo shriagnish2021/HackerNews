@@ -35,14 +35,14 @@ export default function Header() {
           Subscribe to Newsletter
         </button>
         {login ? <Login setlogin={setlogin} /> : null}
-        {!session ? (
-          <button onClick={() => setlogin(true)}>login</button>
-        ) : (
+        {session && !loading ? (
           <>
-            
-            <span>welcome {session.user.name}</span>
-            <button onClick={() => signOut()}>logout</button>
-          </>
+          <span>welcome {session.user.name}</span>
+          <button onClick={() => signOut()}>logout</button>
+        </>
+         
+        ) : (
+          <button onClick={() => setlogin(true)}>login</button>
         )}
       </div>
 
@@ -50,15 +50,19 @@ export default function Header() {
         <section className="space-x-6  ">
           <Link href="/">
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
-              
               Home
             </span>
           </Link>
-          <Link href="/user/create-post">
-            <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
-              New Article
-            </span>
-          </Link>
+          {session ? (
+            
+              <Link href="/user/create-post">
+                <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
+                  New Article
+                </span>
+              </Link>
+             
+           
+          ) : null}
           <Link href="/">
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
               Vulnerabilities
@@ -66,17 +70,14 @@ export default function Header() {
           </Link>
           <Link href="/">
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
-              
               Malware
             </span>
           </Link>
-
-          <Link href="/postJob">
-            <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
-              
-              Jobs
-            </span>
-          </Link>
+          <Link href="/Jobs">
+                <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
+                  Jobs
+                </span>
+              </Link>
         </section>
         <section className="space-x-6">
           <button type="button" onClick={() => setVisibility(!visibility)}>

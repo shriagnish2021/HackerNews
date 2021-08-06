@@ -28,7 +28,6 @@ const options = {
   callbacks: {
     async session(session) {
       
-
       await prisma.user.upsert({
         where: {
           email: session.user.email,

@@ -6,6 +6,7 @@ var razorpay = new Razorpay({
     key_secret:'tlPIConLzkFZ4fna8UuC8fFx'
 })
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
