@@ -33,22 +33,25 @@ export default function Header() {
           <span>
             <FaEnvelope className="top-0 mt-1 mr-2" />
           </span>
-          Subscribe to Newsletter
+          Subscribe
         </button>
+      <div>
+
+      
         {login ? <Login setlogin={setlogin} /> : null}
+        
         {session && !loading ? (
           <>
-          <span className="mt-2">
-            Create Post
-          </span>
-
+         
           <span>{session.user.image?<img src={session.user.image} alt="user-png" className="h-5" />:<FaUser /> }{session.user.userName}</span>
-          <button onClick={() => signOut()}> Logout</button>
+          <button onClick={() => signOut()} className="ml-4" > Logout</button>
         </>
          
         ) : (
           <button onClick={() => setlogin(true)}>Login</button>
         )}
+        </div>
+          
       </div>
 
       <div className="bg-white text-sm px-6 py-3 flex place-content-evenly">
@@ -68,16 +71,12 @@ export default function Header() {
              
            
           ) : null}
-          <Link href="/">
+          <Link href="/postJob">
             <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
-              Vulnerabilities
+              Post Job
             </span>
           </Link>
-          <Link href="/">
-            <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
-              Malware
-            </span>
-          </Link>
+         
           <Link href="/Jobs">
                 <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
                   Jobs

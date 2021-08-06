@@ -31,7 +31,7 @@ export default function ReadArticle({ article }) {
               </span>
 
               <span>
-                <Link href={`/posts/delete/${article.id}`}>
+                <Link href={`/api/posts/delete/${article.id}`}>
                   <FaTrash />
                 </Link>
               </span>
