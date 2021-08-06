@@ -9,7 +9,7 @@ export default function CreatePost() {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('authorId', 1);
+    formData.append('authorId', 1); //replace with user id from session
     formData.append('img', file);
     formData.append('tags', tags)
     

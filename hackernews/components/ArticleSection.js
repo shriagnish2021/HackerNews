@@ -8,7 +8,7 @@ import ReactPaginate from 'react-paginate'
 export default function ArticleSection({ data }) {
   const [articleData, setArticleData] = useState(data);
   const [pageNumber, setPageNumber] = useState(0);
-  const articlesPerPage = 3;
+  const articlesPerPage = 7;
   const pagesVisited = pageNumber * articlesPerPage;
 
   const displayArticles = articleData.slice(pagesVisited, pagesVisited + articlesPerPage).map(article => (
@@ -36,7 +36,7 @@ export default function ArticleSection({ data }) {
     setPageNumber(selected);
   }
   return (
-    <div className=" flex flex-col place-items-center items-center  ">
+    <div className=" flex flex-col place-items-center items-center ">
       <SearchBar handleSearch={handleSearch} />
       {displayArticles}
       <ReactPaginate

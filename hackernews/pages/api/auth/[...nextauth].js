@@ -6,22 +6,20 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-require("dotenv").config();
+
 
 const options = {
   providers: [
     Providers.Google({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      authorizationUrl:
-        "https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code",
+      
       id: "google",
     }),
 
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
-      scope: "user:email",
       id: "github",
     }),
   ],
@@ -30,18 +28,35 @@ const options = {
   callbacks: {
     async session(session) {
       
-      await prisma.user.upsert({
-        where: {
-          email: session.user.email,
-        },
-        update: {},
-        create: {
-          userName: session.user.name,
-          email: session.user.email,
-        },
-      });
+      const user = await prisma.user.findFirst({
+        where:{
+          email:session.user.email
+        }
+      })
+
+      if(!user){
+        await prisma.user.create({
+        
+          data: {
+            userName: session.user.name,
+            email: session.user.email,
+            image:session.user.image,
+          },
+        });
+
+        const user = await prisma.user.findFirst({
+          where:{
+            email:session.user.email
+          }
+        })
+      }
+
+      
+      session.user = {...user}
       return session;
     },
+  
   },
+
 };
 export default (req, res) => NextAuth(req, res, options);
