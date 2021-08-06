@@ -15,6 +15,7 @@ model User {
   role      Role      @default(AUTHOR)
   isFlagged Boolean   @default(false)
   article   Article[]
+  comments   Comment[]
 }
 
 model Article {
@@ -30,6 +31,7 @@ model Article {
   category   String?
   viewsCount Int?
   userTable  User     @relation(fields: [authorId], references: [id])
+  comments    Comment[]
 }
 
 model Job {
@@ -55,6 +57,17 @@ model JobSkill {
 model Subscriber {
   id    Int    @id @default(autoincrement())
   email String @db.VarChar(100)
+}
+
+model Comment {
+  id String @id
+  content String
+  parentCommentId Int @default(0)
+  date DateTime
+  articleId Int
+  article Article @relation(fields: [articleId], references:[id])
+  authorId Int
+  author User @relation(fields: [authorId], references: [id])
 }
 
 enum Role {
