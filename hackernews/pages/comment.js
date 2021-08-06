@@ -48,7 +48,7 @@ const data = [
 export default function Comments() {
   return (
     <div className="w-full h-full flex justify-center items-center ">
-    <CommentSection articleId={1} data={data} session={{user:{name:"My name", id:12}}} />
+    <CommentSection articleId={1} data={data} session={{user:{userName:"My name", id:12}}} />
     </div>
   );
 }

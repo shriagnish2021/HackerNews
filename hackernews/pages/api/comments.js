@@ -1,8 +1,9 @@
 import nextConnect from "next-connect";
 import sanitizer from "../../util/sanitizer";
+import { addComment, getCommentsByArticleId } from "../../database/queries";
 
 const apiRoute = nextConnect({
-  onError(err, req, res) {
+  onError(error, req, res) {
     res
       .status(501)
       .json({ error: `Sorry something Happened! ${error.message}` });
@@ -12,9 +13,45 @@ const apiRoute = nextConnect({
   },
 });
 
-apiRoute.get((req, res)=>{
-    console.log(req.query);
-    res.json({msg:"Success!!"})
+apiRoute.get(async (req, res) => {
+  if (req.query.id) {
+    try {
+      const comments = await getCommentsByArticleId(+req.query.id);
+      return res.status(200).json({ comments });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: `Sorry something Happened! ${error.message}` });
+    }
+  } else {
+    return res.json({ msg: "Please pass a valid article id." });
+  }
+});
+
+apiRoute.post(async (req, res) => {
+  if (req.body) {
+    try {
+      const { id, content, parentCommentId, date, articleId, authorId } =
+        req.body;
+      const response = await addComment({
+        id,
+        content: sanitizer(content),
+        articleId,
+        authorId,
+        parentCommentId,
+        date,
+      });
+      response.id
+        ? res.status(201).json({ msg: "Successful!" })
+        : res.status(500).json({ error: `Sorry, something went wrong!!` });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: `Sorry something Happened! ${error.message}` });
+    }
+  } else {
+      res.status(404).json({msg:"No data recieved."})
+  }
 });
 
 export default apiRoute;

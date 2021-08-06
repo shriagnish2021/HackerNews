@@ -24,12 +24,21 @@ export default function Comment({ comment, replies, setReplies, session, article
         articleId,
         article: {},
         authorId: session.user.id,
-        author: { userName: session.user.name },
+        author: { userName: session.user.userName },
       };
       setShowReplyField(false);
       setReplies((currentValue) => {
         return [...currentValue, newReply];
       });
+
+      const response = await fetch('/api/comments', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify(newReply)
+      }).then(res => res.json()).catch(e => {console.log(e)});
+       
     }
   }
   return (
