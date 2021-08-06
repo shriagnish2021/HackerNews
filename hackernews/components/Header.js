@@ -1,3 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/link-passhref */ 
+
 import Link from 'next/link';
 import { FaSearch, FaBars, FaEnvelope, FaUser, FaFilter } from 'react-icons/fa';
 import { useState } from 'react';
