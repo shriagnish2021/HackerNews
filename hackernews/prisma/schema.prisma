@@ -16,21 +16,24 @@ model User {
   isFlagged Boolean   @default(false)
   image     String?
   article   Article[]
+  comments  Comment[]
 }
 
 model Article {
-  id         Int      @id @default(autoincrement())
-  authorId   Int      @default(1)
-  title      String   @unique
+  id         Int       @id @default(autoincrement())
+  authorId   Int       @default(1)
+  title      String    @unique
   content    String
-  date       DateTime @default(now())
-  isFlagged  Boolean  @default(false)
-  isDeleted  Boolean  @default(false)
-  votes      Int?     @default(0)
+  image      String?
+  date       DateTime  @default(now())
+  isFlagged  Boolean   @default(false)
+  isDeleted  Boolean   @default(false)
+  votes      Int?      @default(0)
   category   String?
   viewsCount Int?
-  userTable  User     @relation(fields: [authorId], references: [id])
+  userTable  User      @relation(fields: [authorId], references: [id])
   Tag        Tag[]
+  comments   Comment[]
 }
 
 model Job {
@@ -62,6 +65,17 @@ model Tag {
   tag       String
   articleId Int
   Article   Article @relation(fields: [articleId], references: [id])
+}
+
+model Comment {
+  id              String   @id
+  content         String
+  parentCommentId Int      @default(0)
+  date            DateTime
+  articleId       Int
+  article         Article  @relation(fields: [articleId], references: [id])
+  authorId        Int
+  author          User     @relation(fields: [authorId], references: [id])
 }
 
 enum Role {
