@@ -3,13 +3,11 @@ import Link from 'next/link';
 import 'font-awesome/css/font-awesome.min.css';
 
 export default function ArticleInputForm({ addArticle }) {
-
   const [loading, setLoading] = useState(false);
-  const [tags,setTags] = useState([])
+  const [tags, setTags] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imageFile, setImageFile] = useState({});
-
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -17,14 +15,17 @@ export default function ArticleInputForm({ addArticle }) {
   };
 
   const handleSubmit = (e) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
-    addArticle({
-      title,
-      content,
-      img: imageFile,
-      tags,
-    },setLoading);
+    addArticle(
+      {
+        title,
+        content,
+        img: imageFile,
+        tags,
+      },
+      setLoading
+    );
   };
   const addTag = (e) => {
     if (e.key === 'Enter') {
@@ -39,7 +40,7 @@ export default function ArticleInputForm({ addArticle }) {
   return (
     <>
       <div className="flex flex-col place-items-center items-center mt-8  ">
-        <h1 className="text-3xl"> Create Post </h1>
+        <h1 className="text-3xl">Create Post</h1>
         <form encType="multipart/form-data" className=" bg-white w-3/5 py-6 px-8" onSubmit={(e) => handleSubmit(e)}>
           <div className="flex flex-col   w-100 ">
             <div className="border border-black w-40 rounded p-2 ">
@@ -99,11 +100,8 @@ export default function ArticleInputForm({ addArticle }) {
           </div>
           <div>
             <button type="submit" className="m-2 p-1 px-2 border text-xl border-black rounded bg-gray-600 text-white">
-
               {loading && <i className="fa fa-refresh fa-spin" />}
-              {loading && <span>&nbsp;&nbsp;</span>}
-              {' '}
-              Publish{' '}
+              {loading && <span>&nbsp;&nbsp;</span>} Publish{' '}
             </button>
             <Link href="/">
               <span className="p-2 px-2 border border-black rounded text-xl  ">Cancel</span>
