@@ -28,6 +28,7 @@ const isLogin = function isLoggedIn(req, res) {
 console.log("before");
 apiRoute.use(isLogin);
 apiRoute.post(async(req, res) => {
+  console.log("hello")
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",

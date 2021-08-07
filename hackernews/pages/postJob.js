@@ -87,7 +87,9 @@ const PostJob = () => {
                 formData.append('location', location)
                 formData.append('employmentType',employmentType)
                 formData.append('description', description)
+                console.log("aasfsa")
                 const url = process.env.NODE_ENV === 'development' ?  `http://localhost:3000/api/addJob` : `https://hacker-news-delta.vercel.app/api/addJob`;
+                console.log(url)
                 const res = await fetch(url,{
                     method: 'POST',
                     headers: {
@@ -107,12 +109,12 @@ const PostJob = () => {
         var rzp1 = new window.Razorpay(options);
 
         rzp1.on('payment.failed', function (response){
-                alert(response.error.reason);
-                toast.warn("Payment failed!", {
-                    position: toast.POSITION.TOP_CENTER,
-                });
-                setLoading(false)
-                router.push(`/postJob`)
+                alert("Payment Failed.");
+                // toast.warn("Payment failed!", {
+                //     position: toast.POSITION.TOP_CENTER,
+                // });
+                // setLoading(false)
+                // router.push(`/postJob`)
         });
         rzp1.open();
         
@@ -124,7 +126,7 @@ const PostJob = () => {
         <>
             <Header />
             <div className="bg-job-post bg-cover bg-center bg-no-repeat text-white">
-                <div className="px-4 py-8 w-4/5 md:w-1/2 flex flex-col space-y-8">
+                <div className="px-4 py-8 w-4/5 md:w-1/2 lg:py-20 lg:pl-32 2xl:py-36 2xl:pl-48 xl:py-28 xl:pl-40 md:py-20 md:pl-24 flex flex-col space-y-8">
                     <div className="text-3xl md:text-4xl lg:text-5xl">Post your job for just &#8377;299</div>
                     <p className="text-base md:text-lg lg:text-xl">Reach the best candidates by posting a job within 60 seconds on one of India&apos;s largest assessed database.</p>
                 </div>

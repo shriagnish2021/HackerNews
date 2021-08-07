@@ -6,8 +6,8 @@ const JobPostCard = ({ job,description }) => {
     const skills = job.JobSkill
     return (
         <div className="w-full flex justify-center my-8">
-            <div className="w-6/12 border p-4 rounded-lg shadow-xl">
-                <div className="flex justify-between">
+            <div className="w-5/6 lg:w-6/12 border p-4 rounded-lg shadow-xl">
+                <div className="flex flex-col sm:flex-row lg:flex-row justify-between">
                     <div>
                         <h2 className="text-2xl">{job.title}</h2>
                         <p className="text-blue-600">{job.companyName}</p>
@@ -24,9 +24,11 @@ const JobPostCard = ({ job,description }) => {
                         </div>
                     </div>
                     <div className="flex flex-col justify-between">
-                        <span className="text-gray-600">Posted on : {new Date(job.createdAt).toDateString()}</span>
+                        <span className="text-gray-600 pb-3 sm:pb-0">Posted on : {new Date(job.createdAt).toDateString()}</span>
                         {description? '' : (
-                            <Link href={`/jobs/${job.id}`} passHref><div className="cursor-pointer border-2 border-blue-600 bg-gray-50 hover:bg-blue-600 hover:text-white rounded text-center py-2 px-2">View Description</div></Link>
+                            <Link href={`/jobs/${job.id}`} passHref>
+                                <div className="cursor-pointer border-2 self-start border-blue-600 bg-gray-50 hover:bg-blue-600 hover:text-white rounded text-center p-2">View Description</div>
+                            </Link>
                         )}
                     </div>
                 </div>
