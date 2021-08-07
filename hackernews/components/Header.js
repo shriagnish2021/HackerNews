@@ -27,7 +27,7 @@ export default function Header({ setSearchBarVisibility }) {
     });
   }
 const setLoginValue = () => {
-  setlogin
+  return setlogin
 }
   function handleLogin() {
     window.history.pushState({}, "home", window.location.href);
