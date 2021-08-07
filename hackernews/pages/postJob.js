@@ -5,6 +5,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Footer from '../components/Footer';
+import { useSession } from 'next-auth/client';
+import  Unauthorized  from '../components/unauthorized/Unauthorized';
 
 function loadScript() {
     return new Promise((resolve) => {
@@ -25,6 +27,7 @@ const PostJob = () => {
     const editorRef = useRef()
     const [ editorLoaded, setEditorLoaded ] = useState( false )
     const { CKEditor, ClassicEditor} = editorRef.current || {}
+    const [session,load] = useSession()
 
     useEffect( () => {
         editorRef.current = {
@@ -117,9 +120,13 @@ const PostJob = () => {
     const handleCk = (e,editor) => {
         setDescription(editor.getData())
     }
-    return (   
-        <div>
+    return (  
+       
+        <>
+
             <Header />
+            { session && !load? 
+            <>
             <div className="bg-job-post bg-cover bg-center bg-no-repeat text-white">
                 <div className="px-4 py-8 w-4/5 md:w-1/2 lg:py-20 lg:pl-32 2xl:py-36 2xl:pl-48 xl:py-28 xl:pl-40 md:py-20 md:pl-24 flex flex-col space-y-8">
                     <div className="text-3xl md:text-4xl lg:text-5xl">Post your job for just &#8377;299</div>
@@ -209,7 +216,10 @@ const PostJob = () => {
                 </div>
             </div>
             <Footer />
-        </div>
+            </>:
+            <Unauthorized />
+            }
+        </>
     )
 }
 

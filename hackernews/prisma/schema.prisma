@@ -21,19 +21,8 @@ model Article {
   viewsCount Int?
   image      String?
   User       User      @relation(fields: [authorId], references: [id])
-  comments   Comment[]
+  Comment    Comment[]
   Tag        Tag[]
-}
-
-model Comment {
-  id              String   @id
-  content         String
-  parentCommentId Int      @default(0)
-  date            DateTime
-  articleId       Int
-  authorId        Int
-  Article         Article  @relation(fields: [articleId], references: [id])
-  User            User     @relation(fields: [authorId], references: [id])
 }
 
 model Job {
@@ -77,6 +66,17 @@ model User {
   image     String?
   Article   Article[]
   Comment   Comment[]
+}
+
+model Comment {
+  id              String   @id
+  content         String
+  parentCommentId Int      @default(0)
+  date            DateTime
+  articleId       Int
+  authorId        Int
+  Article         Article  @relation(fields: [articleId], references: [id])
+  User            User     @relation(fields: [authorId], references: [id])
 }
 
 enum Role {

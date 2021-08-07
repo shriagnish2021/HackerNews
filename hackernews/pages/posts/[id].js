@@ -12,7 +12,7 @@ export default function Article() {
   const path = Router.asPath;
   const { data, error } = useSWR(`/api${path}`);
   
-  const { session, loading } = useSession();
+  const [session,loading] = useSession();
 
 
   if (error) return <div>failed to load</div>;

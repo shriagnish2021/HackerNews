@@ -3,10 +3,11 @@ import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/client";
 import nextConnect from "next-connect";
 
+
 const prisma = new PrismaClient();
 
 // eslint-disable-next-line import/no-anonymous-default-export
-const session = getSession();
+
 const apiRoute = nextConnect({
   onError(error, req, res) {
     res

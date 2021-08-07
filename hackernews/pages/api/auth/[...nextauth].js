@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import NextAuth from "next-auth";
 
 import Providers from "next-auth/providers";

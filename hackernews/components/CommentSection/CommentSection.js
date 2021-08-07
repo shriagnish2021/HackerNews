@@ -9,13 +9,13 @@ import useSWR from "swr";
 export default function CommentSection({  session }) {
   const router = useRouter();
   const articleId = router.query.id;
-  const {data, error} = useSWR(`/api/comments?id=${articleId}`);
+  const {data, error} = useSWR(`/api/comments?id=${articleId}`,{refreshInterval:5000});
   const commentsArray = data instanceof Array? data.filter((comment) => !comment.parentCommentId): [] ;
   const [comments, setComments] = useState([...commentsArray]);
   const repliesArray = data instanceof Array? data.filter((comment) => !!comment.parentCommentId): [];
   const [replies, setReplies] = useState([...repliesArray]);
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {}, [data,session]);
 
   async function addComment(e, input) {
     e.preventDefault();
