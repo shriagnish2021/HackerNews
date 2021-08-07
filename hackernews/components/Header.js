@@ -26,9 +26,7 @@ export default function Header({ setSearchBarVisibility }) {
       behavior: "smooth",
     });
   }
-const setLoginValue = () => {
-  return setlogin
-}
+
   function handleLogin() {
     window.history.pushState({}, "home", window.location.href);
     setlogin(true);
@@ -92,7 +90,6 @@ const setLoginValue = () => {
               <button
                 type="button"
                 onClick={() => handleLogin()}
-                setlogin={setLoginValue}
                 className="mt-1"
               >
                 <span className="font-bold text-lg tracking-wide">Login</span>
