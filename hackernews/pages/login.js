@@ -1,18 +1,19 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
 import Button from "../components/Login/Button";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
-export default function Login({ setlogin }) {
+export default function Login({setlogin}) {
   const [open, setOpen] = useState(true);
 
   return (
     <div>
+     
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
@@ -89,10 +90,7 @@ export default function Login({ setlogin }) {
                   <button
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white font-medium focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => {
-                      setOpen(false);
-                      setlogin(false);
-                    }}
+                    onClick={() => {setOpen(false);setlogin(false)}}
                   >
                     Cancel
                   </button>

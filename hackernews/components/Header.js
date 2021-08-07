@@ -22,6 +22,11 @@ export default function Header({ setSearchBarVisibility }) {
       behavior: 'smooth',
     });
   }
+
+  function handleLogin(){
+    window.history.pushState({},'home','/')
+    setlogin(true);
+  }
   return (
     <>
       <Head>
@@ -67,7 +72,7 @@ export default function Header({ setSearchBarVisibility }) {
                 </button>
               </>
             ) : (
-              <button type="button" onClick={() => setlogin(true)}>
+              <button type="button" onClick={()=>handleLogin()}>
                 Login
               </button>
             )}
