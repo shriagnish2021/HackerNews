@@ -26,16 +26,6 @@ model Article {
   comments   Comment[]
 }
 
-model Comment {
-  id              String   @id
-  content         String
-  parentCommentId Int      @default(0)
-  date            DateTime
-  articleId       Int
-  authorId        Int
-  Article         Article  @relation(fields: [articleId], references: [id])
-  User            User     @relation(fields: [authorId], references: [id])
-}
 
 model Job {
   id             Int        @id @default(autoincrement())
