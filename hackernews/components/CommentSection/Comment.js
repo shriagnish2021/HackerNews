@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import accountImg from "../../public/images/account_circle_black_24dp.svg";
 import Image from "next/image";
 import Reply from "./Replies";
@@ -7,40 +8,12 @@ import AddComment from "./AddComment";
 import { v4 as uuid4 } from "uuid";
 import sanitizer from "../../util/sanitizer";
 
-export default function Comment({ comment, replies, setReplies, session, articleId }) {
+export default function Comment({ comment, replies, session, articleId, addComment}) {
   const commentReplies = replies.filter(
     (reply) => reply.parentCommentId === comment.id
   );
   const [showReplyField, setShowReplyField] = useState(false);
-
-  async function addReply(e, input) {
-    e.preventDefault();
-    if (input) {
-      const newReply = {
-        id: uuid4(),
-        content: sanitizer(input),
-        parentCommentId: comment.id,
-        date: new Date(),
-        articleId,
-        article: {},
-        authorId: session.user.id,
-        author: { userName: session.user.userName, image:session.user.image },
-      };
-      setShowReplyField(false);
-      setReplies((currentValue) => {
-        return [...currentValue, newReply];
-      });
-
-      const response = await fetch('/api/comments', {
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body: JSON.stringify(newReply)
-      }).then(res => res.json()).catch(e => {console.log(e)});
-       
-    }
-  }
+  
   return (
     <article className="border-2 border-black inline-block mb-3 relative min-w-full">
       <figure className="inline-block min-w-max">
@@ -76,7 +49,8 @@ export default function Comment({ comment, replies, setReplies, session, article
           commentReplies.length || showReplyField ? "bg-gray-100" : ""
         }`}
       >
-        {showReplyField ? <AddComment onSubmit={addReply} label="reply" /> : ""}
+        {console.log(comment.id)}
+        {showReplyField ? <AddComment onSubmit={(e,input)=>addComment(e,input,comment.id)} label="reply" /> : ""}
         {commentReplies.map((reply) => (
           <Reply key={reply.id} content={reply} />
         ))}

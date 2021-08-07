@@ -67,7 +67,7 @@ export async function getCommentsByArticleId(articleId) {
         },
       },
       where: {
-        articleId: +articleId,
+        articleId: parseInt(articleId),
       },
     })
     .then((data) => data)

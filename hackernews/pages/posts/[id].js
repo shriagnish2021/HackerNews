@@ -6,25 +6,37 @@ import CommentSection from '../../components/CommentSection/CommentSection';
 import { useSession } from 'next-auth/client';
 
 import FullPageLoader from "../../components/FullPageLoader";
+import { useState } from 'react';
 
 export default function Article() {
+  typeof window !== 'undefined'
   const Router = useRouter();
-  const path = Router.asPath;
-  const { data, error } = useSWR(`/api${path}`);
+  const {id} = Router.query;
+
+
+
+  console.log(id);
   
-  const [session,loading] = useSession();
 
-
+  const { data, error} = useSWR(id?`/api/posts/${id}`:null);
+  
+  const [session,load] = useSession();
+  
+ 
+  
   if (error) return <div>failed to load</div>;
   if (!data) return <FullPageLoader />;
-
+  
   return (
     <>
       <Header />
       <ReadArticle article={data} />
       <div className="w-full flex justify-center mt-6">
-        <CommentSection session={{ ...session }} />
+        <CommentSection session={session} articleId={id} />
       </div>
     </>
   );
 }
+
+
+

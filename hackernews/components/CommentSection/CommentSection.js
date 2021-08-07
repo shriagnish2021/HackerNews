@@ -4,41 +4,56 @@ import { useEffect, useState } from "react";
 import AddComment from "./AddComment";
 import sanitizer from "../../util/sanitizer";
 import { useRouter } from "next/router";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
+import FullPageLoader from "../FullPageLoader";
 
-export default function CommentSection({  session }) {
+export default function CommentSection({ session, articleId }) {
   const router = useRouter();
-  const articleId = router.query.id;
-  const {data, error} = useSWR(`/api/comments?id=${articleId}`,{refreshInterval:5000});
-  const commentsArray = data instanceof Array? data.filter((comment) => !comment.parentCommentId): [] ;
-  const [comments, setComments] = useState([...commentsArray]);
-  const repliesArray = data instanceof Array? data.filter((comment) => !!comment.parentCommentId): [];
-  const [replies, setReplies] = useState([...repliesArray]);
+  // const articleId = router.query.id;
+  const { data, error, isValidating } = useSWR(
+    `/api/comments?id=${articleId}`,
+    { refreshInterval: 5000}
+  );
 
-  useEffect(() => {}, [data,session]);
+  // const [comments, setComments] = useState([]);
 
-  async function addComment(e, input) {
+  // const [replies, setReplies] = useState([]);
+  if(!data){
+    return <FullPageLoader />
+  }
+ 
+    const comments = data.filter((comment) => !comment.parentCommentId);
+    const replies = data.filter((comment) => !!comment.parentCommentId);
+    // setComments(commentsArray);
+    // setReplies(repliesArray);
+  
+
+  async function addComment(e, input, parentCommentId=0) {
     e.preventDefault();
     if (input) {
       const newComment = {
         id: uuid4(),
         content: sanitizer(input),
-        parentCommentId: 0,
+        parentCommentId,
         date: new Date(),
         articleId,
         article: {},
         authorId: session.user.id,
-        author: { userName: session.user.userName, image:session.user.image },
+        author: { userName: session.user.userName, image: session.user.image },
       };
-      setComments((currentState) => [...currentState, newComment]);
+      // setComments((currentState) => [...currentState, newComment]);
 
-      const response = await fetch('/api/comments', {
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
+      const response = await fetch("/api/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(newComment)
-      }).then(res => res.json()).catch(e => {console.log(e)});
+        body: JSON.stringify(newComment),
+      })
+        .then((res) => {res.json();mutate(`/api/comments?id=${articleId}`)})
+        .catch((e) => {
+          console.log(e);
+        });
     }
   }
 
@@ -58,7 +73,7 @@ export default function CommentSection({  session }) {
             key={comment.id}
             comment={comment}
             replies={replies}
-            setReplies={setReplies}
+            addComment={addComment}
             session={session}
             articleId={articleId}
           />

@@ -16,9 +16,11 @@ const apiRoute = nextConnect({
 apiRoute.get(async (req, res) => {
   if (req.query.id) {
     try {
-      const comments = await getCommentsByArticleId(+req.query.id);
-      return res.status(200).json({ comments });
+      const comments = await getCommentsByArticleId(parseInt(req.query.id));
+      console.log(comments);
+      return res.status(200).json(comments);
     } catch (error) {
+      console.log(error);
       res
         .status(500)
         .json({ error: `Sorry something Happened! ${error.message}` });
@@ -29,15 +31,17 @@ apiRoute.get(async (req, res) => {
 });
 
 apiRoute.post(async (req, res) => {
+
   if (req.body) {
     try {
+      
       const { id, content, parentCommentId, date, articleId, authorId } =
         req.body;
       const response = await addComment({
         id,
         content: sanitizer(content),
-        articleId,
-        authorId,
+        articleId:parseInt(articleId),
+        authorId:parseInt(authorId),
         parentCommentId,
         date,
       });
@@ -45,6 +49,7 @@ apiRoute.post(async (req, res) => {
         ? res.status(201).json({ msg: "Successful!" })
         : res.status(500).json({ error: `Sorry, something went wrong!!` });
     } catch (error) {
+      console.log(error);
       res
         .status(500)
         .json({ error: `Sorry something Happened! ${error.message}` });

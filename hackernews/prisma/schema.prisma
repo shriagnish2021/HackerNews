@@ -21,7 +21,7 @@ model Article {
   viewsCount Int?
   image      String?
   User       User      @relation(fields: [authorId], references: [id])
-  Comment    Comment[]
+  comments    Comment[]
   Tag        Tag[]
 }
 
@@ -65,7 +65,7 @@ model User {
   isFlagged Boolean   @default(false)
   image     String?
   Article   Article[]
-  Comment   Comment[]
+  comments   Comment[]
 }
 
 model Comment {
@@ -75,8 +75,8 @@ model Comment {
   date            DateTime
   articleId       Int
   authorId        Int
-  Article         Article  @relation(fields: [articleId], references: [id])
-  User            User     @relation(fields: [authorId], references: [id])
+  article         Article  @relation(fields: [articleId], references: [id])
+  author          User     @relation(fields: [authorId], references: [id])
 }
 
 enum Role {

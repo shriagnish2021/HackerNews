@@ -101,10 +101,9 @@ const PostJob = () => {
                 const apiResponse = await res.json();
                 console.log(apiResponse)
                 setLoading(false)
-                toast.warn("Job Posted successfully!", {
-                    position: toast.POSITION.TOP_CENTER,
-                });
-                router.push(`/jobs/${apiResponse.id}`)
+                window.alert('payment successfully!!')
+               
+                window.location=`/jobs/${apiResponse.id}`
             },
         };
         var rzp1 = new window.Razorpay(options);
@@ -112,7 +111,7 @@ const PostJob = () => {
         rzp1.on('payment.failed', function (response){
             setLoading(false)
                 alert(response.error.reason);
-                router.push(`/postJob`)
+                window.location=`/postJob`
         });
         rzp1.open();
         
