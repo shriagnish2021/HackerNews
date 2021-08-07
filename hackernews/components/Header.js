@@ -10,13 +10,13 @@ import Head from "next/head";
 import Login from "../pages/login";
 import FullPageLoader from "./FullPageLoader";
 import DropItems from "./dropdown/DropItems";
-
+import SvgDownArrow from "./Login/SvgDownArrow";
 
 export default function Header({ setSearchBarVisibility }) {
   const [visibility, setVisibility] = useState(false);
   const [login, setlogin] = useState(false);
   const [session, loading] = useSession();
-  const [drop,setdrop]=useState(false)
+  const [drop, setdrop] = useState(false);
   const searchBarClass = "flex place-content-center mt-2 ";
   const Router = useRouter();
 
@@ -68,24 +68,23 @@ export default function Header({ setSearchBarVisibility }) {
 
             {session && !loading ? (
               <>
-              <div onClick={()=>setdrop(!drop)}>
-                {drop?<DropItems user={session.user.userName}/>:null}
-                <span>
-                  {session.user.image ? (
-                    
+                <div onClick={() => setdrop(!drop)} className="inline-flex">
+                  {drop ? <DropItems user={session.user.userName} /> : null}
+                  <span>
+                    {session.user.image ? (
                       <img
                         src={session.user.image}
                         alt="user-png"
-                        className="w-10 rounded-full"
+                        className="w-10 rounded-full "
                       />
-                    
-                  ) : (
-                    <FaUser size={40} className="border-2 rounded-full p-1" />
-                  )}
-                
-                </span>
+                    ) : (
+                      <FaUser size={40} className="rounded-full p-1" />
+                    )}
+                  </span>
+                  <span className="flex items-center">
+                    <SvgDownArrow />
+                  </span>
                 </div>
-                
               </>
             ) : (
               <button
@@ -100,8 +99,8 @@ export default function Header({ setSearchBarVisibility }) {
           </div>
         </div>
 
-        <div className="bg-white text-sm px-6 py-3 flex place-content-evenly">
-          <section className="space-x-6  ">
+        <div className="bg-white text-sm px-6 py-3 flex place-content-between w-3/5 mx-auto">
+          <section className="space-x-6 ml-9 ">
             <Link href="/">
               <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
                 Home
@@ -114,19 +113,20 @@ export default function Header({ setSearchBarVisibility }) {
                 </span>
               </Link>
             ) : null}
-            <Link href="/postJob">
-              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
-                Post Job
-              </span>
-            </Link>
-
+            {session ? (
+              <Link href="/postJob">
+                <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
+                  Post Job
+                </span>
+              </Link>
+            ) : null}
             <Link href="/jobs">
               <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
                 Jobs
               </span>
             </Link>
           </section>
-          {Router.asPath === "/" ? (
+          {Router.asPath === "/" || Router.asPath === "/" ? (
             <section className="space-x-6">
               <button
                 type="button"
