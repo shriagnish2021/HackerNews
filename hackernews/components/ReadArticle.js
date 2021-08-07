@@ -10,6 +10,7 @@ import router from 'next/router';
 import Link from 'next/link';
 
 export default function ReadArticle({ article }) {
+  console.log(article);
   const [session, loading] = useSession();
   const imagePath = `/images/malware.jpg`;
   const deleteArticle = async () => {
@@ -36,7 +37,7 @@ export default function ReadArticle({ article }) {
         &emsp; &ensp;
         <span className="text-gray-600 text-xs relative ">
           <FaUser className="absolute top-0 -left-4 " />
-          {article.userTable.userName}
+          {article.User.userName}
         </span>
         {session && !loading ? (
           session.user.role == 'ADMIN' || session.user.id == article.authorId ? (
