@@ -91,6 +91,7 @@ export default function Header({ setSearchBarVisibility }) {
               <button
                 type="button"
                 onClick={() => handleLogin()}
+                setlogin={setlogin}
                 className="mt-1"
               >
                 <span className="font-bold text-lg tracking-wide">Login</span>
