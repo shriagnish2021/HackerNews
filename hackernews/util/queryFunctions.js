@@ -1,9 +1,9 @@
-import prisma from "./prisma";
+import prisma from './prisma';
 
 export async function getAllArticles() {
   const articles = await prisma.article.findMany({
     include: {
-      userTable: {
+      User: {
         select: {
           id: true,
           userName: true,
@@ -27,7 +27,7 @@ export async function getArticleById(id) {
       id,
     },
     include: {
-      userTable: {
+      User: {
         select: {
           id: true,
           userName: true,
@@ -44,6 +44,23 @@ export async function createData(data) {
     data,
   });
   return newData;
+}
+export async function updateArticleData(id, data) {
+  const updatedData = await prisma.article.update({
+    where: {
+      id,
+    },
+    data,
+  });
+  return updatedData;
+}
+export async function deleteArticle(id) {
+  const deletedData = await prisma.article.delete({
+    where: {
+      id: +id,
+    },
+  });
+  return deletedData;
 }
 export async function getAllJobs() {
   const jobs = await prisma.job.findMany({
@@ -73,4 +90,12 @@ export async function createTags(tags) {
     data: tags,
   });
   return tagsResult;
+}
+export async function deleteTags(id) {
+  const deletedTagData = await prisma.tag.deleteMany({
+    where: {
+      articleId: +id,
+    },
+  });
+  return deletedTagData;
 }

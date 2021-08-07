@@ -14,13 +14,13 @@ export default function CreatePost() {
     formData.append('authorId', session.user.id); //replace with user id from session
     formData.append('img', file);
 
-    formData.append('tags', tags)
-    
+    formData.append('tags', tags);
+
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
     };
     const { data } = await axios.post('/api/posts', formData, config);
-    setLoading(false)
+    setLoading(false);
     router.push(`/posts/${data.id}`);
   };
 
