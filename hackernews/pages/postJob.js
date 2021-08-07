@@ -87,9 +87,7 @@ const PostJob = () => {
                 formData.append('location', location)
                 formData.append('employmentType',employmentType)
                 formData.append('description', description)
-                console.log("aasfsa")
                 const url = process.env.NODE_ENV === 'development' ?  `http://localhost:3000/api/addJob` : `https://hacker-news-delta.vercel.app/api/addJob`;
-                console.log(url)
                 const res = await fetch(url,{
                     method: 'POST',
                     headers: {
@@ -97,7 +95,6 @@ const PostJob = () => {
                     },
                     body: JSON.stringify(jobData),
                 })
-                console.log("asfaf")
                 const apiResponse = await res.json();
                 console.log(apiResponse)
                 setLoading(false)
@@ -110,11 +107,7 @@ const PostJob = () => {
         var rzp1 = new window.Razorpay(options);
 
         rzp1.on('payment.failed', function (response){
-                alert("Payment Failed.");
-                // toast.warn("Payment failed!", {
-                //     position: toast.POSITION.TOP_CENTER,
-                // });
-                setLoading(false)
+                alert(response.error.reason);
                 router.push(`/postJob`)
         });
         rzp1.open();
