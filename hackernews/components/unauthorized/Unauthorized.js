@@ -8,7 +8,7 @@ export default function Unauthorized() {
                 401 | Not Authorized!!
             </span>
             <Link href="/">
-                <a className="text-white mt-4 text-center border font-bold bg-blue-600 rounded py-2">
+                <a className="text-white mt-4 text-center border font-bold bg-blue-800 rounded py-2">
                     Back To Home
                     </a></Link>
         </div>

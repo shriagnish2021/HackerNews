@@ -10,6 +10,7 @@ import router from 'next/router';
 import Link from 'next/link';
 
 export default function ReadArticle({ article }) {
+  console.log(article);
   const [session, loading] = useSession();
   const imagePath = `/images/malware.jpg`;
   const deleteArticle = async () => {

@@ -3,10 +3,11 @@ import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/client";
 import nextConnect from "next-connect";
 
+
 const prisma = new PrismaClient();
 
 // eslint-disable-next-line import/no-anonymous-default-export
-const session = getSession();
+
 const apiRoute = nextConnect({
   onError(error, req, res) {
     res
@@ -19,14 +20,7 @@ const apiRoute = nextConnect({
   },
 });
 
-const isLogin = function isLoggedIn(req, res) {
-  console.log("inside");
-  if (!session ) {
-    res.status(401).json({ error: "You are not allowed!" });
-  }
-};
-console.log("before");
-apiRoute.use(isLogin);
+
 apiRoute.post(async(req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
