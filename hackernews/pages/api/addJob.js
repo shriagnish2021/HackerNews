@@ -2,7 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/client";
 import nextConnect from "next-connect";
-import protect from "../../middlewares/protect";
+
 
 const prisma = new PrismaClient();
 
