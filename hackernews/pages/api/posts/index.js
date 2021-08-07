@@ -1,6 +1,13 @@
 import nextConnect from 'next-connect';
 import multer from 'multer';
-import { getAllArticles, createData, createTags } from '../../../util/queryFunctions';
+import {
+  getAllArticles,
+  createData,
+  createTags,
+  updateArticleData,
+  deleteArticle,
+  deleteTags,
+} from '../../../util/queryFunctions';
 import sanitizer from '../../../util/sanitizer.js';
 
 const upload = multer({
@@ -26,7 +33,7 @@ apiRoute.get(async (req, res) => {
   res.status(200).json(data);
 });
 
-// Process a PUT request
+// Process a POST request
 apiRoute.post(async (req, res) => {
   try {
     const title = sanitizer(req.body.title);
@@ -52,9 +59,44 @@ apiRoute.post(async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(501).json({ msg: ' There is an error. Our tech team has been notified.' });
-  } finally {
-    console.log('hello');
   }
+});
+
+// Process a PUT request
+apiRoute.put(async (req, res) => {
+  try {
+    const title = sanitizer(req.body.title);
+    const content = sanitizer(req.body.content);
+    const id = sanitizer(req.body.id);
+    const { tags } = req.body;
+    const tagsArray = tags.split(',');
+    const updateArticle = {
+      title,
+      content,
+    };
+ 
+    const updatedData = await updateArticleData(+id, updateArticle);
+    const mappedTags = tagsArray.map((tag) => {
+      const mappedTag = {};
+      mappedTag.tag = tag;
+      mappedTag.articleId = +id;
+      return mappedTag;
+    });
+    const deletedTagData = await deleteTags(id);
+    const addTags = await createTags(mappedTags);
+    res.status(200).json('Article updated successfully');
+  } catch (err) {
+    console.log(err);
+    res.status(501).json({ msg: ' There is an error. Our tech team has been notified.' });
+  }
+});
+
+// Process a Delete request
+apiRoute.delete(async (req, res) => {
+  const { id } = req.query;
+  console.log(+id);
+  const deletedArticle = await deleteArticle(+id);
+  res.status(200).json({ msg: 'Article deleted successfully' });
 });
 
 export default apiRoute;

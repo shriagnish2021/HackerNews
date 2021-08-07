@@ -2,7 +2,6 @@ import axios from 'axios';
 import router from 'next/router';
 import Header from '../../components/Header';
 import ArticleInputForm from '../../components/ArticleInputForm';
-import { useState } from 'react';
 
 export default function CreatePost() {
   const handleAddNewArticle = async ({ title, content, file, tags },setLoading) => {
@@ -19,7 +18,7 @@ export default function CreatePost() {
       headers: { 'content-type': 'multipart/form-data' },
     };
     const { data } = await axios.post('/api/posts', formData, config);
-    setLoading(false)
+    setLoading(false);
     router.push(`/posts/${data.id}`);
   };
   const imageUpload = async (file) => {
