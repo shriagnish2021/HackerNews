@@ -1,33 +1,38 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable @next/next/link-passhref */ 
+/* eslint-disable @next/next/link-passhref */
 
-import Link from 'next/link';
-import { FaSearch, FaBars, FaEnvelope, FaUser, FaFilter } from 'react-icons/fa';
-import { useState } from 'react';
-import { signOut, useSession } from 'next-auth/client';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Login from '../pages/login';
+import Link from "next/link";
+import { FaSearch, FaBars, FaEnvelope, FaUser, FaFilter } from "react-icons/fa";
+import { useState } from "react";
+import { signOut, useSession } from "next-auth/client";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Login from "../pages/login";
+import FullPageLoader from "./FullPageLoader";
+import DropItems from "./dropdown/DropItems";
 
 export default function Header({ setSearchBarVisibility }) {
   const [visibility, setVisibility] = useState(false);
   const [login, setlogin] = useState(false);
   const [session, loading] = useSession();
-  const searchBarClass = 'flex place-content-center mt-2 ';
+  const [drop,setdrop]=useState(false)
+  const searchBarClass = "flex place-content-center mt-2 ";
   const Router = useRouter();
 
   function handleScroll() {
     window.scroll({
       top: document.body.offsetHeight,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   }
 
-  function handleLogin(){
-    window.history.pushState({},'home',window.location.href)
+  function handleLogin() {
+    window.history.pushState({}, "home", window.location.href);
     setlogin(true);
   }
-  return (
+  return loading ? (
+    <FullPageLoader />
+  ) : (
     <>
       <Head>
         <meta charset="UTF-8" />
@@ -43,10 +48,10 @@ export default function Header({ setSearchBarVisibility }) {
             <Link href="/">The Hacker News</Link>
           </h1>
 
-          {Router.asPath === '/' || Router.asPath==='/#' ? (
+          {Router.asPath === "/" || Router.asPath === "/#" ? (
             <button
               type="button"
-              className="bg-yellow-300 text-black p-2 flex rounded-md"
+              className="bg-yellow-300 text-black p-2 flex rounded-md max-h-10"
               onClick={() => handleScroll()}
             >
               <span>
@@ -55,27 +60,39 @@ export default function Header({ setSearchBarVisibility }) {
               Subscribe
             </button>
           ) : (
-            ''
+            ""
           )}
           <div>
             {login ? <Login setlogin={setlogin} /> : null}
 
             {session && !loading ? (
               <>
+              <div onClick={()=>setdrop(!drop)}>
+                {drop?<DropItems user={session.user.userName}/>:null}
                 <span>
-                  {session.user.image ? <img src={session.user.image} alt="user-png" className="h-5" /> : <FaUser />}
-                  {session.user.userName}
+                  {session.user.image ? (
+                    
+                      <img
+                        src={session.user.image}
+                        alt="user-png"
+                        className="w-10 rounded-full"
+                      />
+                    
+                  ) : (
+                    <FaUser size={40} className="border-2 rounded-full p-1" />
+                  )}
+                
                 </span>
-                <button type="button" onClick={() => signOut()} className="ml-4">
-                  
-                  Logout
-                </button>
+                </div>
+                
               </>
             ) : (
-              <button type="button" onClick={()=>handleLogin()} className="mt-1">
-                <span className="font-bold text-lg tracking-wide" >
-                Login
-                  </span>
+              <button
+                type="button"
+                onClick={() => handleLogin()}
+                className="mt-1"
+              >
+                <span className="font-bold text-lg tracking-wide">Login</span>
               </button>
             )}
           </div>
@@ -84,7 +101,9 @@ export default function Header({ setSearchBarVisibility }) {
         <div className="bg-white text-sm px-6 py-3 flex place-content-evenly">
           <section className="space-x-6  ">
             <Link href="/">
-              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">Home</span>
+              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
+                Home
+              </span>
             </Link>
             {session ? (
               <Link href="/user/create-post">
@@ -94,14 +113,18 @@ export default function Header({ setSearchBarVisibility }) {
               </Link>
             ) : null}
             <Link href="/postJob">
-              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">Post Job</span>
+              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
+                Post Job
+              </span>
             </Link>
 
             <Link href="/jobs">
-              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">Jobs</span>
+              <span className=" border-transparent  border-b-4 cursor-pointer hover:border-blue-800 p-1">
+                Jobs
+              </span>
             </Link>
           </section>
-          {Router.asPath === '/' ? (
+          {Router.asPath === "/" ? (
             <section className="space-x-6">
               <button
                 type="button"
@@ -129,11 +152,13 @@ export default function Header({ setSearchBarVisibility }) {
                     prevState.search
                       ? {
                           search: false,
-                          searchWithinDateRange: !prevState.searchWithinDateRange,
+                          searchWithinDateRange:
+                            !prevState.searchWithinDateRange,
                         }
                       : {
                           ...prevState,
-                          searchWithinDateRange: !prevState.searchWithinDateRange,
+                          searchWithinDateRange:
+                            !prevState.searchWithinDateRange,
                         }
                   )
                 }
@@ -142,11 +167,10 @@ export default function Header({ setSearchBarVisibility }) {
               </button>
             </section>
           ) : (
-            ''
+            ""
           )}
         </div>
       </header>
     </>
   );
 }
-
