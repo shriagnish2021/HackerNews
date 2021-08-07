@@ -107,6 +107,7 @@ const PostJob = () => {
         var rzp1 = new window.Razorpay(options);
 
         rzp1.on('payment.failed', function (response){
+            setLoading(false)
                 alert(response.error.reason);
                 router.push(`/postJob`)
         });
