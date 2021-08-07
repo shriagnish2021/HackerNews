@@ -40,8 +40,9 @@ export default function CreatePost() {
     
     <div className="bg-gray-100">
       <Header />
-      {session && !loading?
-      <ArticleInputForm addArticle={handleAddNewArticle} /> : <Unauthorized />}
+    {session?
+      session && !loading?
+      <ArticleInputForm addArticle={handleAddNewArticle} /> : <Unauthorized />}:''}
     </div>
   );
 }
