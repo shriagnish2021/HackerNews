@@ -42,7 +42,7 @@ export default function CreatePost() {
       <Header />
     {session?
       session && !loading?
-      <ArticleInputForm addArticle={handleAddNewArticle} /> : <Unauthorized />}:''}
+      <ArticleInputForm addArticle={handleAddNewArticle} /> : <Unauthorized />:''}
     </div>
   );
 }
