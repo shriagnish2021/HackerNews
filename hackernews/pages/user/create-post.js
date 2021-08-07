@@ -12,9 +12,11 @@ export default function CreatePost() {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('authorId', 1); //replace with user id from session
+    formData.append('authorId', session.user.id); //replace with user id from session
     formData.append('img', url);
     formData.append('tags', tags)
+    
+    const [session,loading] = useSession()
     
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
@@ -40,9 +42,9 @@ export default function CreatePost() {
     
     <div className="bg-gray-100">
       <Header />
-    {session?
-      session && !loading?
-      <ArticleInputForm addArticle={handleAddNewArticle} /> : <Unauthorized />:''}
+    
+    {session && !loading?
+      <ArticleInputForm addArticle={handleAddNewArticle} /> : <Unauthorized />}
     </div>
   );
 }
