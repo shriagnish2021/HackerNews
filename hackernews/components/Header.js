@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Login from "../pages/login";
 import FullPageLoader from "./FullPageLoader";
+import DropItems from "./dropdown/DropItems";
 
 
 export default function Header({ setSearchBarVisibility }) {

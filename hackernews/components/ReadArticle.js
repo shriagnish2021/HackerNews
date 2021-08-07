@@ -36,7 +36,7 @@ export default function ReadArticle({ article }) {
         &emsp; &ensp;
         <span className="text-gray-600 text-xs relative ">
           <FaUser className="absolute top-0 -left-4 " />
-          {article.User.userName}
+          {article.userTable.userName}
         </span>
         {session && !loading ? (
           session.user.role == 'ADMIN' || session.user.id == article.authorId ? (
