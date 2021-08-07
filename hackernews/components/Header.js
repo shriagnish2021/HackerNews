@@ -24,7 +24,7 @@ export default function Header({ setSearchBarVisibility }) {
   }
 
   function handleLogin(){
-    window.history.pushState({},'home','/')
+    window.history.pushState({},'home',window.location.href)
     setlogin(true);
   }
   return (
@@ -51,7 +51,7 @@ export default function Header({ setSearchBarVisibility }) {
             >
               <span>
                 <FaEnvelope className="top-0 mt-1 mr-2" />
-              </span>{' '}
+              </span>
               Subscribe
             </button>
           ) : (
@@ -67,13 +67,15 @@ export default function Header({ setSearchBarVisibility }) {
                   {session.user.userName}
                 </span>
                 <button type="button" onClick={() => signOut()} className="ml-4">
-                  {' '}
+                  
                   Logout
                 </button>
               </>
             ) : (
-              <button type="button" onClick={()=>handleLogin()}>
+              <button type="button" onClick={()=>handleLogin()} className="mt-1">
+                <span className="font-bold text-lg tracking-wide" >
                 Login
+                  </span>
               </button>
             )}
           </div>

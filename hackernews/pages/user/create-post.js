@@ -3,9 +3,10 @@ import router from 'next/router';
 import Header from '../../components/Header';
 import ArticleInputForm from '../../components/ArticleInputForm';
 import { useSession } from 'next-auth/client';
+import  Unauthorized  from '../../components/unauthorized/Unauthorized';
 
 export default function CreatePost() {
-  const [session] = useSession()
+  const [session,loading] = useSession()
   const handleAddNewArticle = async ({ title, content, file, tags },setLoading) => {
     const formData = new FormData();
     formData.append('title', title);
@@ -24,9 +25,11 @@ export default function CreatePost() {
   };
 
   return (
+    
     <div className="bg-gray-100">
       <Header />
-      <ArticleInputForm addArticle={handleAddNewArticle} />
+      {session && !loading?
+      <ArticleInputForm addArticle={handleAddNewArticle} /> : <Unauthorized />}
     </div>
   );
 }
