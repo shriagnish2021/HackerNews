@@ -19,14 +19,14 @@ const apiRoute = nextConnect({
   },
 });
 
-const isLogin = function isLoggedIn(req, res) {
-  console.log("inside");
-  if (!session ) {
-    res.status(401).json({ error: "You are not allowed!" });
-  }
-};
-console.log("before");
-apiRoute.use(isLogin);
+// const isLogin = function isLoggedIn(req, res) {
+//   console.log("inside");
+//   // if (!session ) {
+//   //   res.status(401).json({ error: "You are not allowed!" });
+//   // }
+// };
+// console.log("before");
+// apiRoute.use(isLogin);
 apiRoute.post(async(req, res) => {
   console.log("hello")
   res.setHeader("Access-Control-Allow-Origin", "*");

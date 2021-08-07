@@ -97,6 +97,7 @@ const PostJob = () => {
                     },
                     body: JSON.stringify(jobData),
                 })
+                console.log("asfaf")
                 const apiResponse = await res.json();
                 console.log(apiResponse)
                 setLoading(false)
@@ -113,8 +114,8 @@ const PostJob = () => {
                 // toast.warn("Payment failed!", {
                 //     position: toast.POSITION.TOP_CENTER,
                 // });
-                // setLoading(false)
-                // router.push(`/postJob`)
+                setLoading(false)
+                router.push(`/postJob`)
         });
         rzp1.open();
         
@@ -123,7 +124,7 @@ const PostJob = () => {
         setDescription(editor.getData())
     }
     return (   
-        <>
+        <div>
             <Header />
             <div className="bg-job-post bg-cover bg-center bg-no-repeat text-white">
                 <div className="px-4 py-8 w-4/5 md:w-1/2 lg:py-20 lg:pl-32 2xl:py-36 2xl:pl-48 xl:py-28 xl:pl-40 md:py-20 md:pl-24 flex flex-col space-y-8">
@@ -214,7 +215,7 @@ const PostJob = () => {
                 </div>
             </div>
             <Footer />
-        </>
+        </div>
     )
 }
 
