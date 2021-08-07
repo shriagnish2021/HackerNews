@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
 }
 
 datasource db {
@@ -7,39 +8,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int       @id @default(autoincrement())
-  userName  String
-  email     String    @unique
-  date      DateTime  @default(now())
-  role      Role      @default(AUTHOR)
-  isFlagged Boolean   @default(false)
-  image     String?
-  article   Article[]
-  comments  Comment[]
-}
 
 model Article {
   id         Int       @id @default(autoincrement())
   authorId   Int       @default(1)
   title      String    @unique
   content    String
-  image      String?
   date       DateTime  @default(now())
   isFlagged  Boolean   @default(false)
   isDeleted  Boolean   @default(false)
   votes      Int?      @default(0)
   category   String?
   viewsCount Int?
-  userTable  User      @relation(fields: [authorId], references: [id])
+  image      String?
+  User       User      @relation(fields: [authorId], references: [id])
   Tag        Tag[]
   comments   Comment[]
+}
+
+model Comment {
+  id              String   @id
+  content         String
+  parentCommentId Int      @default(0)
+  date            DateTime
+  articleId       Int
+  authorId        Int
+  Article         Article  @relation(fields: [articleId], references: [id])
+  User            User     @relation(fields: [authorId], references: [id])
 }
 
 model Job {
   id             Int        @id @default(autoincrement())
   createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  updatedAt      DateTime
   title          String?
   companyName    String?
   location       String?
@@ -61,11 +62,24 @@ model Subscriber {
 }
 
 model Tag {
-  id        Int     @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   tag       String
   articleId Int
-  Article   Article @relation(fields: [articleId], references: [id])
+  Article   Article @relation(fields: [articleId], references: [id],onDelete: Cascade)
 }
+
+model User {
+  id        Int       @id @default(autoincrement())
+  userName  String
+  email     String    @unique
+  date      DateTime  @default(now())
+  role      Role      @default(AUTHOR)
+  isFlagged Boolean   @default(false)
+  image     String?
+  Article   Article[]
+  Comment   Comment[]
+}
+
 
 model Comment {
   id              String   @id
