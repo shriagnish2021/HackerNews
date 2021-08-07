@@ -17,15 +17,12 @@ export default function ArticleInputForm({ addArticle }) {
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
-    addArticle(
-      {
-        title,
-        content,
-        img: imageFile,
-        tags,
-      },
-      setLoading
-    );
+    addArticle({
+      title,
+      content,
+      file: imageFile,
+      tags,
+    },setLoading);
   };
   const addTag = (e) => {
     if (e.key === 'Enter') {

@@ -8,7 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Article {
   id         Int       @id @default(autoincrement())
   authorId   Int       @default(1)
@@ -22,10 +21,9 @@ model Article {
   viewsCount Int?
   image      String?
   User       User      @relation(fields: [authorId], references: [id])
+  Comment    Comment[]
   Tag        Tag[]
-  comments   Comment[]
 }
-
 
 model Job {
   id             Int        @id @default(autoincrement())
@@ -52,10 +50,10 @@ model Subscriber {
 }
 
 model Tag {
-  id        Int    @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   tag       String
   articleId Int
-  Article   Article @relation(fields: [articleId], references: [id],onDelete: Cascade)
+  Article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
 }
 
 model User {
@@ -70,16 +68,15 @@ model User {
   Comment   Comment[]
 }
 
-
 model Comment {
   id              String   @id
   content         String
   parentCommentId Int      @default(0)
   date            DateTime
   articleId       Int
-  article         Article  @relation(fields: [articleId], references: [id])
   authorId        Int
-  author          User     @relation(fields: [authorId], references: [id])
+  Article         Article  @relation(fields: [articleId], references: [id])
+  User            User     @relation(fields: [authorId], references: [id])
 }
 
 enum Role {

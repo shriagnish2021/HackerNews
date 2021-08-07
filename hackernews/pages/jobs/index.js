@@ -3,6 +3,7 @@ import Header from '../../components/Header';
 import JobPostCard from '../../components/Jobs/JobPostCard';
 import useSWR from 'swr';
 import FullPageLoader from '../../components/FullPageLoader';
+import Footer from '../../components/Footer';
 
 const Jobs = () => {
   const { data, error } = useSWR('/api/jobs');
@@ -12,9 +13,12 @@ const Jobs = () => {
     return (
         <>
           <Header />
-          {data.map(job => (
-            <JobPostCard key={job.id} job={job} />
-          ))}
+          <div className="min-h-screen">
+            {data.map(job => (
+              <JobPostCard key={job.id} job={job} />
+            ))}
+          </div>
+          <Footer />
         </>
     )
 }

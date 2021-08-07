@@ -57,7 +57,13 @@ export default function ReadArticle({ article }) {
           ) : null
         ) : null}
       </div>
-      <Image src={imagePath} width={775} height={300} layout="intrinsic" alt="Cover Image" />
+      <Image
+        src={`${article.image || imagePath}`}
+        width={775}
+        height={300}
+        layout="intrinsic"
+        alt="Cover Image"
+      />
       <p
         className="w-3/5 mt-6 text-gray-800 text-sm text-justify"
         dangerouslySetInnerHTML={{ __html: marked(article.content) }}
