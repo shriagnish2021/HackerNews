@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/client';
 import  Unauthorized  from '../../components/unauthorized/Unauthorized';
 
 export default function CreatePost() {
+  const [session,loading] = useSession()
   const handleAddNewArticle = async ({ title, content, file, tags },setLoading) => {
     console.log(file)
     const url = await imageUpload(file)
@@ -15,9 +16,7 @@ export default function CreatePost() {
     formData.append('authorId', session.user.id); //replace with user id from session
     formData.append('img', url);
     formData.append('tags', tags)
-    
-    const [session,loading] = useSession()
-    
+   
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
     };
