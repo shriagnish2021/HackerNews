@@ -8,6 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Article {
   id         Int       @id @default(autoincrement())
   authorId   Int       @default(1)
@@ -21,8 +22,8 @@ model Article {
   viewsCount Int?
   image      String?
   User       User      @relation(fields: [authorId], references: [id])
-  Comment    Comment[]
   Tag        Tag[]
+  comments   Comment[]
 }
 
 model Comment {
@@ -77,6 +78,18 @@ model User {
   image     String?
   Article   Article[]
   Comment   Comment[]
+}
+
+
+model Comment {
+  id              String   @id
+  content         String
+  parentCommentId Int      @default(0)
+  date            DateTime
+  articleId       Int
+  article         Article  @relation(fields: [articleId], references: [id])
+  authorId        Int
+  author          User     @relation(fields: [authorId], references: [id])
 }
 
 enum Role {
