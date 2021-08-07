@@ -8,7 +8,7 @@ import Button from "../components/Login/Button";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
-export default function Login({setlogin}) {
+export default function Login() {
   const [open, setOpen] = useState(true);
 
   return (
@@ -20,7 +20,7 @@ export default function Login({setlogin}) {
           static
           className="fixed z-10 inset-0 overflow-y-auto"
           open={open}
-          onClose={setlogin}
+          onClose={setOpen}
         >
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <Transition.Child
